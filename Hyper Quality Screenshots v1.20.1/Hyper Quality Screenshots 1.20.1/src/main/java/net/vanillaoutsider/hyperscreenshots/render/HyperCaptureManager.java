@@ -55,9 +55,10 @@ public final class HyperCaptureManager {
         Window window = minecraft.getWindow();
         int originalWidth = window.getWidth();
         int originalHeight = window.getHeight();
+        double originalGuiScale = window.getGuiScale();
         ResolutionPreset.ResolutionDimensions dimensions = preset.calculateDimensions(originalWidth, originalHeight, config.customMultiplier);
 
-        LOGGER.info("[Hyper Quality Screenshots] Executing {} capture ({}x{})", preset.getDisplayName(), dimensions.width(), dimensions.height());
+        LOGGER.info("[Hyper Quality Screenshots] Executing {} capture ({}x{}) with proportional UI scale", preset.getDisplayName(), dimensions.width(), dimensions.height());
 
         // Handle auto-hide HUD if configured
         if (config.autoHideHud) {
@@ -85,8 +86,12 @@ public final class HyperCaptureManager {
                     }
                 }
 
+                float scaleFactor = (float) dimensions.width() / (float) Math.max(1, originalWidth);
+                int targetGuiScale = (int) Math.max(1, Math.round(originalGuiScale * scaleFactor));
+
                 window.setWidth(dimensions.width());
                 window.setHeight(dimensions.height());
+                window.setGuiScale(targetGuiScale);
                 target.resize(dimensions.width(), dimensions.height(), Minecraft.ON_OSX);
                 targetResized = true;
 
@@ -96,6 +101,7 @@ public final class HyperCaptureManager {
 
                 window.setWidth(originalWidth);
                 window.setHeight(originalHeight);
+                window.setGuiScale(originalGuiScale);
                 target.resize(originalWidth, originalHeight, Minecraft.ON_OSX);
                 targetResized = false;
                 restoreHudState(minecraft, config);
@@ -107,6 +113,7 @@ public final class HyperCaptureManager {
             if (targetResized) {
                 window.setWidth(originalWidth);
                 window.setHeight(originalHeight);
+                window.setGuiScale(originalGuiScale);
                 target.resize(originalWidth, originalHeight, Minecraft.ON_OSX);
             }
             restoreHudState(minecraft, config);
