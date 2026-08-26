@@ -1,17 +1,12 @@
 # Changelog
 
-## [1.0.1+26.2] - 2026-08-26
-
-### Added
-- Created `fabric.mod.json` client manifest declaring `"environment": "client"` and open dependency bounds `">=26.2-"`.
-- Implemented `HyperScreenshotsClient` Fabric client entrypoint with Knot classloader `ModVersionGuard`.
-- Configured mixins definition `hyper-screenshots.mixins.json` at `JAVA_25`.
-- Added standard assets and baseline `en_us.json` localization.
-
 ## [1.0.0+26.2] - 2026-08-26
 
 ### Added
-- Initial subproject toolchain scaffolding targeting Minecraft 26.2.
-- Configured Fabric Loom 1.15+ with Java 25 toolchain and non-obfuscated runtime.
-- Added compile-only dependency hooks for YetAnotherConfigLib v3 and ModMenu.
-- Added automated release archive lifecycle task copying to `Archive Jar of all versions/MC 26.2/`.
+- Complete initial release of Hyper Quality Screenshots on Minecraft 26.2.
+- Multi-resolution supersampling engine with Normal, 2K (1440p), 4K (2160p), 8K (4320p), 16K (8640p), and custom multipliers ($1\times - 16\times$).
+- Tiled frustum rendering engine for 8K/16K to prevent GPU VRAM exhaustion and OS TDR driver timeouts.
+- Isolated offscreen `RenderTarget` (FBO) capture pipeline with zero client window resizing or flickering.
+- Asynchronous non-blocking PNG disk writer on `Util.ioPool()` with interactive clickable chat notifications and success audio chimes.
+- Dual keybind architecture: `F2` for active YACL preset and `Ctrl + F2` for instant 16K max capture.
+- Pure client-side YetAnotherConfigLib (YACL v3) & ModMenu configuration interface (**strictly zero GameRules**).

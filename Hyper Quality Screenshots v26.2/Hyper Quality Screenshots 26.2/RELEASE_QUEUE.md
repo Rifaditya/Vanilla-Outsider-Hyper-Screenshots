@@ -5,5 +5,4 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [ ] **`1.0.1+26.2`** (2026-08-26) - Client manifest, entrypoint initializers, and version guard.
-- [ ] **`1.0.0+26.2`** (2026-08-26) - Initial subproject scaffolding for MC 26.2.
+- [ ] **`1.0.0+26.2`** (2026-08-26) - Complete initial release of Hyper Quality Screenshots.

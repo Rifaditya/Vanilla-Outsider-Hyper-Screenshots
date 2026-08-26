@@ -1,6 +1,34 @@
 {
-  "modmenu.nameTranslation.hyper-screenshots": "Hyper Quality Screenshots",
-  "modmenu.descriptionTranslation.hyper-screenshots": "Capture ultra-high-resolution screenshots (Normal, 2K, 4K, 8K, 16K) with offscreen framebuffer supersampling, chunked tile rendering, and asynchronous disk writes.",
+  "config.hyperscreenshots.title": "Hyper Quality Screenshots Configuration",
+  "config.hyperscreenshots.category.resolution": "Resolution & Supersampling",
+  "config.hyperscreenshots.category.resolution.tooltip": "Configure capture resolution presets and scaling factors",
+  "config.hyperscreenshots.preset": "Resolution Preset",
+  "config.hyperscreenshots.preset.desc": "Target resolution for standard F2 screenshot captures.",
+  "config.hyperscreenshots.customMultiplier": "Custom Resolution Multiplier",
+  "config.hyperscreenshots.customMultiplier.desc": "Supersampling scale factor applied when Custom preset is selected (1.0x to 16.0x).",
+  "config.hyperscreenshots.category.capture": "Capture & Interface",
+  "config.hyperscreenshots.category.capture.tooltip": "HUD, hand visibility, and shortcut settings",
+  "config.hyperscreenshots.autoHideHud": "Auto-Hide HUD",
+  "config.hyperscreenshots.autoHideHud.desc": "Automatically hides crosshairs, hotbar, and status bars during capture pass.",
+  "config.hyperscreenshots.autoHideHand": "Auto-Hide Hand",
+  "config.hyperscreenshots.autoHideHand.desc": "Hides first-person player hand and held items during capture.",
+  "config.hyperscreenshots.instantMaxKeyEnabled": "Instant 16K Max Keybind (Ctrl + F2)",
+  "config.hyperscreenshots.instantMaxKeyEnabled.desc": "Pressing Ctrl + F2 instantly captures a 16K QUHD (8640p) screenshot regardless of active preset.",
+  "config.hyperscreenshots.category.feedback": "Feedback & Audio",
+  "config.hyperscreenshots.category.feedback.tooltip": "Audio chimes and chat notification preferences",
+  "config.hyperscreenshots.playSoundOnSuccess": "Play Completion Chime",
+  "config.hyperscreenshots.playSoundOnSuccess.desc": "Plays an audio chime when the screenshot is saved to disk.",
+  "config.hyperscreenshots.hardwareTransparencyAlerts": "Hardware Transparency Alerts",
+  "config.hyperscreenshots.hardwareTransparencyAlerts.desc": "Shows informative chat messages when tiled frustum rendering is engaged.",
+
+  "hyperscreenshots.preset.normal": "Normal (Native)",
+  "hyperscreenshots.preset.two_k": "2K QHD (1440p)",
+  "hyperscreenshots.preset.four_k": "4K UHD (2160p)",
+  "hyperscreenshots.preset.eight_k": "8K FUHD (4320p)",
+  "hyperscreenshots.preset.sixteen_k": "16K QUHD (8640p)",
+  "hyperscreenshots.preset.custom": "Custom Multiplier",
+
   "hyperscreenshots.notification.saved": "Saved screenshot as %s (%s)",
-  "hyperscreenshots.notification.hardware_warning": "GPU limit reached: Tiled supersampling engaged (%s)."
+  "hyperscreenshots.notification.tiling_active": "Tiled rendering active: %sx%s grid sub-passes",
+  "hyperscreenshots.notification.error": "Failed to save hyper screenshot: %s"
 }
