@@ -1,0 +1,6 @@
+{
+  "modmenu.nameTranslation.hyper-screenshots": "Hyper Quality Screenshots",
+  "modmenu.descriptionTranslation.hyper-screenshots": "Capture ultra-high-resolution screenshots (Normal, 2K, 4K, 8K, 16K) with offscreen framebuffer supersampling, chunked tile rendering, and asynchronous disk writes.",
+  "hyperscreenshots.notification.saved": "Saved screenshot as %s (%s)",
+  "hyperscreenshots.notification.hardware_warning": "GPU limit reached: Tiled supersampling engaged (%s)."
+}
