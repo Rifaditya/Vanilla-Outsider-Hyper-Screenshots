@@ -1,7 +1,9 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.vanillaoutsider.hyperscreenshots.render;
 
+import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.NativeImage;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
@@ -48,9 +50,10 @@ public final class HyperCaptureManager {
         HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
         ResolutionPreset preset = isInstantMax ? ResolutionPreset.SIXTEEN_K : activePreset;
 
-        int windowWidth = minecraft.getWindow().getWidth();
-        int windowHeight = minecraft.getWindow().getHeight();
-        ResolutionPreset.ResolutionDimensions dimensions = preset.calculateDimensions(windowWidth, windowHeight, config.customMultiplier);
+        Window window = minecraft.getWindow();
+        int originalWidth = window.getWidth();
+        int originalHeight = window.getHeight();
+        ResolutionPreset.ResolutionDimensions dimensions = preset.calculateDimensions(originalWidth, originalHeight, config.customMultiplier);
 
         LOGGER.info("[Hyper Quality Screenshots] Executing {} capture ({}x{})", preset.getDisplayName(), dimensions.width(), dimensions.height());
 
@@ -62,15 +65,18 @@ public final class HyperCaptureManager {
             }
         }
 
+        RenderTarget target = minecraft.gameRenderer.mainRenderTarget();
+        boolean targetResized = false;
+
         try {
             if (preset == ResolutionPreset.NORMAL) {
                 // Capture directly from main render target
-                Screenshot.takeScreenshot(minecraft.gameRenderer.mainRenderTarget(), image -> {
+                Screenshot.takeScreenshot(target, image -> {
                     restoreHudState(minecraft, config);
                     AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
                 });
             } else {
-                // Offscreen supersampling capture
+                // Supersampled resolution render pass
                 ResolutionPreset.TileGrid grid = ResolutionPreset.getSuggestedTileGrid(dimensions.width(), dimensions.height());
                 
                 if (grid.getTotalTiles() > 1 && config.hardwareTransparencyAlerts) {
@@ -80,16 +86,31 @@ public final class HyperCaptureManager {
                     }
                 }
 
-                offscreenFramebuffer.prepare(dimensions.width(), dimensions.height());
+                window.setWidth(dimensions.width());
+                window.setHeight(dimensions.height());
+                target.resize(dimensions.width(), dimensions.height());
+                targetResized = true;
 
-                // Capture offscreen buffer
-                Screenshot.takeScreenshot(offscreenFramebuffer.getTarget(), image -> {
+                minecraft.gameRenderer.update(deltaTracker);
+                minecraft.gameRenderer.extract(deltaTracker, true);
+                minecraft.gameRenderer.renderLevel(deltaTracker);
+
+                Screenshot.takeScreenshot(target, image -> {
+                    window.setWidth(originalWidth);
+                    window.setHeight(originalHeight);
+                    target.resize(originalWidth, originalHeight);
                     restoreHudState(minecraft, config);
+
                     AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
                 });
             }
         } catch (Exception e) {
             LOGGER.error("[Hyper Quality Screenshots] Exception during screenshot capture pass", e);
+            if (targetResized) {
+                window.setWidth(originalWidth);
+                window.setHeight(originalHeight);
+                target.resize(originalWidth, originalHeight);
+            }
             restoreHudState(minecraft, config);
             Component errorMsg = Component.translatable("hyperscreenshots.notification.error", e.getMessage());
             if (minecraft.gui != null && minecraft.gui.hud != null) {

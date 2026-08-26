@@ -1,7 +1,11 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.vanillaoutsider.hyperscreenshots.render;
 
+import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.NativeImage;
+import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 import net.minecraft.network.chat.Component;
@@ -47,9 +51,10 @@ public final class HyperCaptureManager {
         HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
         ResolutionPreset preset = isInstantMax ? ResolutionPreset.SIXTEEN_K : activePreset;
 
-        int windowWidth = minecraft.getWindow().getWidth();
-        int windowHeight = minecraft.getWindow().getHeight();
-        ResolutionPreset.ResolutionDimensions dimensions = preset.calculateDimensions(windowWidth, windowHeight, config.customMultiplier);
+        Window window = minecraft.getWindow();
+        int originalWidth = window.getWidth();
+        int originalHeight = window.getHeight();
+        ResolutionPreset.ResolutionDimensions dimensions = preset.calculateDimensions(originalWidth, originalHeight, config.customMultiplier);
 
         LOGGER.info("[Hyper Quality Screenshots] Executing {} capture ({}x{})", preset.getDisplayName(), dimensions.width(), dimensions.height());
 
@@ -59,14 +64,17 @@ public final class HyperCaptureManager {
             minecraft.options.hideGui = true;
         }
 
+        RenderTarget target = minecraft.getMainRenderTarget();
+        boolean targetResized = false;
+
         try {
             if (preset == ResolutionPreset.NORMAL) {
                 // Capture directly from main render target
-                NativeImage image = Screenshot.takeScreenshot(minecraft.getMainRenderTarget());
+                NativeImage image = Screenshot.takeScreenshot(target);
                 restoreHudState(minecraft, config);
                 AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
             } else {
-                // Offscreen supersampling capture
+                // Supersampled resolution render pass
                 ResolutionPreset.TileGrid grid = ResolutionPreset.getSuggestedTileGrid(dimensions.width(), dimensions.height());
                 
                 if (grid.getTotalTiles() > 1 && config.hardwareTransparencyAlerts) {
@@ -76,15 +84,30 @@ public final class HyperCaptureManager {
                     }
                 }
 
-                offscreenFramebuffer.prepare(dimensions.width(), dimensions.height());
+                window.setWidth(dimensions.width());
+                window.setHeight(dimensions.height());
+                target.resize(dimensions.width(), dimensions.height(), Minecraft.ON_OSX);
+                targetResized = true;
 
-                // Capture offscreen buffer
-                NativeImage image = Screenshot.takeScreenshot(offscreenFramebuffer.getTarget());
+                minecraft.gameRenderer.renderLevel(tickDelta, Util.getNanos(), new PoseStack());
+
+                NativeImage image = Screenshot.takeScreenshot(target);
+
+                window.setWidth(originalWidth);
+                window.setHeight(originalHeight);
+                target.resize(originalWidth, originalHeight, Minecraft.ON_OSX);
+                targetResized = false;
                 restoreHudState(minecraft, config);
+
                 AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
             }
         } catch (Exception e) {
             LOGGER.error("[Hyper Quality Screenshots] Exception during screenshot capture pass", e);
+            if (targetResized) {
+                window.setWidth(originalWidth);
+                window.setHeight(originalHeight);
+                target.resize(originalWidth, originalHeight, Minecraft.ON_OSX);
+            }
             restoreHudState(minecraft, config);
             Component errorMsg = Component.translatable("hyperscreenshots.notification.error", e.getMessage());
             if (minecraft.gui != null && minecraft.gui.getChat() != null) {
