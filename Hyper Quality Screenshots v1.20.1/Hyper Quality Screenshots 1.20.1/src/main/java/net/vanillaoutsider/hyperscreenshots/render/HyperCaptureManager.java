@@ -4,7 +4,6 @@ package net.vanillaoutsider.hyperscreenshots.render;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
@@ -48,6 +47,8 @@ public final class HyperCaptureManager {
             return;
         }
 
+        this.captureRequested = false;
+
         HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
         ResolutionPreset preset = isInstantMax ? ResolutionPreset.SIXTEEN_K : activePreset;
 
@@ -74,7 +75,7 @@ public final class HyperCaptureManager {
                 restoreHudState(minecraft, config);
                 AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
             } else {
-                // Supersampled resolution render pass
+                // Supersampled resolution render pass (World + UI / Screens)
                 ResolutionPreset.TileGrid grid = ResolutionPreset.getSuggestedTileGrid(dimensions.width(), dimensions.height());
                 
                 if (grid.getTotalTiles() > 1 && config.hardwareTransparencyAlerts) {
@@ -89,7 +90,7 @@ public final class HyperCaptureManager {
                 target.resize(dimensions.width(), dimensions.height(), Minecraft.ON_OSX);
                 targetResized = true;
 
-                minecraft.gameRenderer.renderLevel(tickDelta, Util.getNanos(), new PoseStack());
+                minecraft.gameRenderer.render(tickDelta, Util.getNanos(), true);
 
                 NativeImage image = Screenshot.takeScreenshot(target);
 
@@ -113,8 +114,6 @@ public final class HyperCaptureManager {
             if (minecraft.gui != null && minecraft.gui.getChat() != null) {
                 minecraft.gui.getChat().addMessage(errorMsg);
             }
-        } finally {
-            this.captureRequested = false;
         }
     }
 

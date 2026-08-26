@@ -47,6 +47,9 @@ public final class HyperCaptureManager {
             return;
         }
 
+        // Set to false immediately to prevent recursive re-entry during gameRenderer.render pass
+        this.captureRequested = false;
+
         HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
         ResolutionPreset preset = isInstantMax ? ResolutionPreset.SIXTEEN_K : activePreset;
 
@@ -76,7 +79,7 @@ public final class HyperCaptureManager {
                     AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
                 });
             } else {
-                // Supersampled resolution render pass
+                // Supersampled resolution render pass (World + UI / Screens)
                 ResolutionPreset.TileGrid grid = ResolutionPreset.getSuggestedTileGrid(dimensions.width(), dimensions.height());
                 
                 if (grid.getTotalTiles() > 1 && config.hardwareTransparencyAlerts) {
@@ -93,7 +96,7 @@ public final class HyperCaptureManager {
 
                 minecraft.gameRenderer.update(deltaTracker);
                 minecraft.gameRenderer.extract(deltaTracker, true);
-                minecraft.gameRenderer.renderLevel(deltaTracker);
+                minecraft.gameRenderer.render(deltaTracker, true);
 
                 Screenshot.takeScreenshot(target, image -> {
                     window.setWidth(originalWidth);
@@ -116,8 +119,6 @@ public final class HyperCaptureManager {
             if (minecraft.gui != null && minecraft.gui.hud != null) {
                 minecraft.gui.hud.getChat().addClientSystemMessage(errorMsg);
             }
-        } finally {
-            this.captureRequested = false;
         }
     }
 
