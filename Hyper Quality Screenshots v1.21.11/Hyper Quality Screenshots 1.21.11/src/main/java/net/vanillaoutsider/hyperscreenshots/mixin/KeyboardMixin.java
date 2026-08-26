@@ -1,0 +1,36 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+package net.vanillaoutsider.hyperscreenshots.mixin;
+
+import net.minecraft.client.KeyboardHandler;
+import net.vanillaoutsider.hyperscreenshots.config.HyperScreenshotsConfig;
+import net.vanillaoutsider.hyperscreenshots.config.ResolutionPreset;
+import net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(KeyboardHandler.class)
+public abstract class KeyboardMixin {
+    private static final int KEY_F2 = 291;
+    private static final int ACTION_PRESS = 1;
+    private static final int MOD_CONTROL = 2;
+
+    @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)
+    private void onKeyPress(long handle, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
+        if (action == ACTION_PRESS && key == KEY_F2) {
+            HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
+            boolean isCtrlDown = (modifiers & MOD_CONTROL) != 0;
+
+            if (isCtrlDown && config.instantMaxKeyEnabled) {
+                // Instant 16K QUHD Max Screenshot
+                HyperCaptureManager.getInstance().requestCapture(ResolutionPreset.SIXTEEN_K, true);
+                ci.cancel();
+            } else if (config.resolutionPreset != ResolutionPreset.NORMAL) {
+                // Active Supersampled Preset Screenshot
+                HyperCaptureManager.getInstance().requestCapture(config.resolutionPreset, false);
+                ci.cancel();
+            }
+        }
+    }
+}
