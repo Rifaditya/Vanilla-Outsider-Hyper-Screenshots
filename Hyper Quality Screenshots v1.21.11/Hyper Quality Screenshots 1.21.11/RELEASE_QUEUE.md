@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.2.0+1.21.11`** - Brigadier client command suite (/hyperscreenshots, /hypershot, /hqss).
 - [ ] **`1.1.7+1.21.11`** - Hardware bounds safety clamping and GPU limit guard.
 - [ ] **`1.1.6+1.21.11`** - Capture concurrency and debounce guard.
 - [ ] **`1.1.5+1.21.11`** - Atomic configuration file persistence.

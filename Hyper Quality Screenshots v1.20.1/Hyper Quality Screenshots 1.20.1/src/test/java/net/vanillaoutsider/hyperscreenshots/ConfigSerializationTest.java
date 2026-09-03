@@ -119,6 +119,31 @@ class ConfigSerializationTest {
     }
 
     @Test
+    @DisplayName("Assert command preset parsing")
+    void testCommandPresetParsing() {
+        assertEquals(ResolutionPreset.NORMAL, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("normal"));
+        assertEquals(ResolutionPreset.TWO_K, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("2k"));
+        assertEquals(ResolutionPreset.TWO_K, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("two_k"));
+        assertEquals(ResolutionPreset.FOUR_K, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("4k"));
+        assertEquals(ResolutionPreset.FOUR_K, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("four_k"));
+        assertEquals(ResolutionPreset.EIGHT_K, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("8k"));
+        assertEquals(ResolutionPreset.EIGHT_K, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("eight_k"));
+        assertEquals(ResolutionPreset.SIXTEEN_K, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("16k"));
+        assertEquals(ResolutionPreset.SIXTEEN_K, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("sixteen_k"));
+        assertEquals(ResolutionPreset.CUSTOM, net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("custom"));
+        assertNull(net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.parsePreset("invalid_foo"));
+    }
+
+    @Test
+    @DisplayName("Assert command toggle setting")
+    void testCommandToggleSetting() {
+        HyperScreenshotsConfig config = new HyperScreenshotsConfig();
+        boolean initial = config.autoHideHud;
+        net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.applyToggle(config, "autoHideHud");
+        assertNotEquals(initial, config.autoHideHud);
+    }
+
+    @Test
     @DisplayName("Assert hardware bounds safely clamps oversized dimensions while preserving aspect ratio")
     void testHardwareBoundsClamping() {
         ResolutionPreset.ResolutionDimensions oversized = new ResolutionPreset.ResolutionDimensions(15360, 8640);

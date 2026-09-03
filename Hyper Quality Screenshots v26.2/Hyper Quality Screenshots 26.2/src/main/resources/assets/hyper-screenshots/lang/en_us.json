@@ -33,5 +33,13 @@
   "hyperscreenshots.notification.hardware_clamped": "Requested resolution exceeds GPU limit (%s). Clamped to %s.",
   "hyperscreenshots.notification.auto_hide_hand.enabled": "Auto-Hide Hand: Enabled",
   "hyperscreenshots.notification.auto_hide_hand.disabled": "Auto-Hide Hand: Disabled",
-  "hyperscreenshots.notification.error": "Failed to save hyper screenshot: %s"
+  "hyperscreenshots.notification.busy": "Capture pipeline is currently busy. Please wait a moment.",
+  "hyperscreenshots.notification.error": "Failed to save hyper screenshot: %s",
+
+  "hyperscreenshots.command.preset_changed": "Resolution preset changed to %s.",
+  "hyperscreenshots.command.invalid_preset": "Unknown resolution preset '%s'. Available: normal, 2k, 4k, 8k, 16k, custom.",
+  "hyperscreenshots.command.toggle_changed": "%s is now %s.",
+  "hyperscreenshots.command.invalid_toggle": "Unknown setting '%s'. Available: hud, hand, instantmax, sound, alerts.",
+  "hyperscreenshots.command.reloaded": "Configuration successfully reloaded from disk.",
+  "hyperscreenshots.command.capture_triggered": "Triggered screenshot capture with preset: %s."
 }

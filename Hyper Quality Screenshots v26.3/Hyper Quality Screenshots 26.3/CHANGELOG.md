@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0+26.3]
+
+### Added
+- Implemented full in-game client Brigadier command suite (`/hyperscreenshots`, with aliases `/hypershot` and `/hqss`) using Fabric API v2.
+- Added subcommands:
+  - `/hyperscreenshots status` — Displays active resolution preset, dimensions, auto-hide HUD/hand states, chime, and alert configurations.
+  - `/hyperscreenshots preset <name>` — Live resolution preset switching with tab completion (`normal`, `2k`, `4k`, `8k`, `16k`, `custom`) and automatic config persistence.
+  - `/hyperscreenshots capture [preset]` — Immediate screenshot trigger without keybind collision, supporting optional one-shot preset overrides.
+  - `/hyperscreenshots toggle <setting>` — Live toggle for HUD, hand, instant max key, chime sound, and hardware alert options.
+  - `/hyperscreenshots reload` — Reloads JSON configuration from disk.
+  - `/hyperscreenshots help` — Formatted guide of subcommands and active hotkey reminders.
+
 ## [1.1.7+26.3]
 
 ### Added

@@ -17,6 +17,7 @@ public class HyperScreenshotsClient implements ClientModInitializer {
 
         // Preload client configuration
         HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
-        LOGGER.info("[{}] Configuration loaded. Default preset: {}", MOD_NAME, config.resolutionPreset.getDisplayName());
+        // Register client commands
+        net.vanillaoutsider.hyperscreenshots.command.HyperScreenshotsCommand.register();
     }
 }
