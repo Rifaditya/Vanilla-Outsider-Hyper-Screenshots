@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.1.3+1.20.1`** - Expand automated tests for Auto-Hide Hand toggle and capture state.
 - [ ] **`1.1.2+1.20.1`** - Standardize translatable Auto-Hide Hand toggle notifications.
 - [ ] **`1.1.1+1.20.1`** - Add live Alt+F2 Auto-Hide Hand toggle shortcut.
 - [ ] **`1.1.0+1.20.1`** - Implement functional Auto-Hide Hand capture engine.

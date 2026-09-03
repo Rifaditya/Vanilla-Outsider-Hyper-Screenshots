@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.3+26.2]
+
+### Added
+- Expanded automated unit test suite (`ConfigSerializationTest`) verifying live `autoHideHand` toggle mutations, JSON serialization roundtrips, and capture manager state invariants.
+
 ## [1.1.2+26.2]
 
 ### Added

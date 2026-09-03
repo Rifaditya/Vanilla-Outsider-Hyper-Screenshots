@@ -69,4 +69,33 @@ class ConfigSerializationTest {
         assertTrue(deserialized.autoHideHud);
         assertTrue(deserialized.autoHideHand);
     }
+
+    @Test
+    @DisplayName("Assert autoHideHand toggle mutation and serialization persistence")
+    void testAutoHideHandToggleMutation() {
+        HyperScreenshotsConfig config = new HyperScreenshotsConfig();
+        assertFalse(config.autoHideHand);
+
+        // Simulate Alt + F2 live toggle
+        config.autoHideHand = !config.autoHideHand;
+        assertTrue(config.autoHideHand);
+
+        String json = GSON.toJson(config);
+        HyperScreenshotsConfig deserialized = GSON.fromJson(json, HyperScreenshotsConfig.class);
+        assertNotNull(deserialized);
+        assertTrue(deserialized.autoHideHand);
+
+        // Toggle back
+        deserialized.autoHideHand = !deserialized.autoHideHand;
+        assertFalse(deserialized.autoHideHand);
+    }
+
+    @Test
+    @DisplayName("Assert capture manager state initial invariants")
+    void testCaptureManagerStateInvariants() {
+        net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager manager = net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager.getInstance();
+        assertNotNull(manager);
+        assertFalse(manager.isCapturing());
+        assertFalse(manager.isCapturePending());
+    }
 }
