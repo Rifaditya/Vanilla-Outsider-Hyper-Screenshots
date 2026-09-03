@@ -3,6 +3,7 @@ package net.vanillaoutsider.hyperscreenshots.mixin;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
+import net.vanillaoutsider.hyperscreenshots.config.HyperScreenshotsConfig;
 import net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,6 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererMixin {
 
     @Shadow @Final private Minecraft minecraft;
+
+    @Inject(method = "renderItemInHand", at = @At("HEAD"), cancellable = true)
+    private void onRenderItemInHand(CallbackInfo ci) {
+        if (HyperCaptureManager.getInstance().isCapturing() && HyperScreenshotsConfig.get().autoHideHand) {
+            ci.cancel();
+        }
+    }
 
     @Inject(
         method = "render",

@@ -5,4 +5,5 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.1.0+1.21.11`** - Implement functional Auto-Hide Hand capture engine.
 - [ ] **`1.0.0+1.21.11`** (2026-08-26) - Complete initial release of Hyper Quality Screenshots.

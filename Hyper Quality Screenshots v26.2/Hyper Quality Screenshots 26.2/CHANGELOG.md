@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0+26.2]
+
+### Added
+- Functional Auto-Hide Hand capture engine: Injects into first-person item rendering pipeline to seamlessly suppress hands and held items during active screenshot passes when `autoHideHand` is enabled.
+- Dedicated render pass support for native `NORMAL` preset captures when hiding HUD or hands.
+
 ## [1.0.0+26.2] - 2026-08-26
 
 ### Added

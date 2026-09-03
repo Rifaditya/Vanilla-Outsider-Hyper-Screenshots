@@ -20,6 +20,7 @@ public final class HyperCaptureManager {
 
     private final OffscreenFramebuffer offscreenFramebuffer = new OffscreenFramebuffer();
     private boolean captureRequested = false;
+    private boolean capturing = false;
     private ResolutionPreset activePreset = ResolutionPreset.FOUR_K;
     private boolean isInstantMax = false;
     private boolean previousHudHidden = false;
@@ -28,6 +29,10 @@ public final class HyperCaptureManager {
 
     public static HyperCaptureManager getInstance() {
         return INSTANCE;
+    }
+
+    public boolean isCapturing() {
+        return capturing;
     }
 
     public void requestCapture(ResolutionPreset preset, boolean instantMax) {
@@ -48,6 +53,7 @@ public final class HyperCaptureManager {
         }
 
         this.captureRequested = false;
+        this.capturing = true;
 
         HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
         ResolutionPreset preset = isInstantMax ? ResolutionPreset.SIXTEEN_K : activePreset;
@@ -71,9 +77,12 @@ public final class HyperCaptureManager {
 
         try {
             if (preset == ResolutionPreset.NORMAL) {
+                if (config.autoHideHud || config.autoHideHand) {
+                    minecraft.gameRenderer.render(deltaTracker, true);
+                }
                 // Capture directly from main render target
                 Screenshot.takeScreenshot(target, image -> {
-                    restoreHudState(minecraft, config);
+                    restoreCaptureState(minecraft, config);
                     AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
                 });
             } else {
@@ -103,7 +112,7 @@ public final class HyperCaptureManager {
                     window.setHeight(originalHeight);
                     window.setGuiScale(originalGuiScale);
                     target.resize(originalWidth, originalHeight);
-                    restoreHudState(minecraft, config);
+                    restoreCaptureState(minecraft, config);
 
                     AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
                 });
@@ -116,7 +125,7 @@ public final class HyperCaptureManager {
                 window.setGuiScale(originalGuiScale);
                 target.resize(originalWidth, originalHeight);
             }
-            restoreHudState(minecraft, config);
+            restoreCaptureState(minecraft, config);
             Component errorMsg = Component.translatable("hyperscreenshots.notification.error", e.getMessage());
             if (minecraft.gui != null && minecraft.gui.getChat() != null) {
                 minecraft.gui.getChat().addClientSystemMessage(errorMsg);
@@ -124,7 +133,8 @@ public final class HyperCaptureManager {
         }
     }
 
-    private void restoreHudState(Minecraft minecraft, HyperScreenshotsConfig config) {
+    private void restoreCaptureState(Minecraft minecraft, HyperScreenshotsConfig config) {
+        this.capturing = false;
         if (config.autoHideHud) {
             minecraft.options.hideGui = previousHudHidden;
         }

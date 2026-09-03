@@ -4,6 +4,7 @@ package net.vanillaoutsider.hyperscreenshots.mixin;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
+import net.vanillaoutsider.hyperscreenshots.config.HyperScreenshotsConfig;
 import net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,11 +20,18 @@ public abstract class GameRendererMixin {
     @Final
     private Minecraft minecraft;
 
+    @Inject(method = "renderItemInHand", at = @At("HEAD"), cancellable = true)
+    private void onRenderItemInHand(CallbackInfo ci) {
+        if (HyperCaptureManager.getInstance().isCapturing() && HyperScreenshotsConfig.get().autoHideHand) {
+            ci.cancel();
+        }
+    }
+
     @Inject(method = "render", at = @At("RETURN"))
-    private void onRenderReturn(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo ci) {
+    private void onRenderReturn(CallbackInfo ci) {
         HyperCaptureManager captureManager = HyperCaptureManager.getInstance();
         if (captureManager.isCapturePending()) {
-            captureManager.executePendingCapture(this.minecraft, deltaTracker);
+            captureManager.executePendingCapture(this.minecraft, this.minecraft.getDeltaTracker());
         }
     }
 }
