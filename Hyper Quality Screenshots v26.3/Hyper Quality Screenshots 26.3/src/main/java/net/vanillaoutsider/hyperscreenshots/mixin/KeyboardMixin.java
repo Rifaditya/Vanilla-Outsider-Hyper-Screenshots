@@ -36,7 +36,9 @@ public abstract class KeyboardMixin {
                 // Live Toggle: Auto-Hide Hand
                 config.autoHideHand = !config.autoHideHand;
                 config.save();
-                Component feedback = Component.literal("[Hyper Screenshots] Auto-Hide Hand: " + (config.autoHideHand ? "Enabled" : "Disabled"));
+                Component feedback = Component.translatable(config.autoHideHand
+                    ? "hyperscreenshots.notification.auto_hide_hand.enabled"
+                    : "hyperscreenshots.notification.auto_hide_hand.disabled");
                 if (this.minecraft.gui != null && this.minecraft.gui.hud != null) {
                     this.minecraft.gui.hud.getChat().addClientSystemMessage(feedback);
                 }

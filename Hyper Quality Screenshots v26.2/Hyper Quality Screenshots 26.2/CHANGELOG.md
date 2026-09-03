@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.2+26.2]
+
+### Added
+- Standardized translatable notification strings (`hyperscreenshots.notification.auto_hide_hand.enabled` and `disabled`) in `en_us.json` for the Auto-Hide Hand live toggle.
+
 ## [1.1.1+26.2]
 
 ### Added

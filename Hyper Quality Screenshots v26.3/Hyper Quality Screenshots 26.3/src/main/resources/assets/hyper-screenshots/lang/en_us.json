@@ -30,5 +30,7 @@
 
   "hyperscreenshots.notification.saved": "Saved screenshot as %s (%s)",
   "hyperscreenshots.notification.tiling_active": "Tiled rendering active: %sx%s grid sub-passes",
+  "hyperscreenshots.notification.auto_hide_hand.enabled": "Auto-Hide Hand: Enabled",
+  "hyperscreenshots.notification.auto_hide_hand.disabled": "Auto-Hide Hand: Disabled",
   "hyperscreenshots.notification.error": "Failed to save hyper screenshot: %s"
 }
