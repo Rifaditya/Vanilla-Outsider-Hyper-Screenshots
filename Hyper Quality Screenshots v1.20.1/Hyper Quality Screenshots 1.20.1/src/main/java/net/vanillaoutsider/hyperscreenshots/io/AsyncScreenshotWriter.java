@@ -35,44 +35,49 @@ public final class AsyncScreenshotWriter {
 
         File targetFile = generateUniqueFile(screenshotsDir, preset.getSuffix());
 
-        Util.ioPool().execute(() -> {
-            try (NativeImage autoCloseImage = image) {
-                LOGGER.info("[Hyper Quality Screenshots] Saving {} screenshot ({}x{}) to {}", preset.getDisplayName(), width, height, targetFile.getName());
-                autoCloseImage.writeToFile(targetFile);
+        try {
+            Util.ioPool().execute(() -> {
+                try (NativeImage autoCloseImage = image) {
+                    LOGGER.info("[Hyper Quality Screenshots] Saving {} screenshot ({}x{}) to {}", preset.getDisplayName(), width, height, targetFile.getName());
+                    autoCloseImage.writeToFile(targetFile);
 
-                minecraft.execute(() -> {
-                    HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
+                    minecraft.execute(() -> {
+                        HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
 
-                    // Optional audio feedback
-                    if (config.playSoundOnSuccess && minecraft.player != null) {
-                        minecraft.player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.8f, 1.2f);
-                    }
+                        // Optional audio feedback
+                        if (config.playSoundOnSuccess && minecraft.player != null) {
+                            minecraft.player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.8f, 1.2f);
+                        }
 
-                    // Clickable file link
-                    MutableComponent fileLink = Component.literal(targetFile.getName())
-                            .withStyle(ChatFormatting.UNDERLINE)
-                            .withStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, targetFile.getAbsolutePath())));
+                        // Clickable file link
+                        MutableComponent fileLink = Component.literal(targetFile.getName())
+                                .withStyle(ChatFormatting.UNDERLINE)
+                                .withStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, targetFile.getAbsolutePath())));
 
-                    Component notification = Component.translatable(
-                            "hyperscreenshots.notification.saved",
-                            fileLink,
-                            preset.getDisplayName()
-                    );
+                        Component notification = Component.translatable(
+                                "hyperscreenshots.notification.saved",
+                                fileLink,
+                                preset.getDisplayName()
+                        );
 
-                    if (minecraft.gui != null && minecraft.gui.getChat() != null) {
-                        minecraft.gui.getChat().addMessage(notification);
-                    }
-                });
-            } catch (Exception e) {
-                LOGGER.error("[Hyper Quality Screenshots] Failed to save screenshot to disk", e);
-                minecraft.execute(() -> {
-                    Component errorMsg = Component.translatable("hyperscreenshots.notification.error", e.getMessage());
-                    if (minecraft.gui != null && minecraft.gui.getChat() != null) {
-                        minecraft.gui.getChat().addMessage(errorMsg);
-                    }
-                });
-            }
-        });
+                        if (minecraft.gui != null && minecraft.gui.getChat() != null) {
+                            minecraft.gui.getChat().addMessage(notification);
+                        }
+                    });
+                } catch (Exception e) {
+                    LOGGER.error("[Hyper Quality Screenshots] Failed to save screenshot to disk", e);
+                    minecraft.execute(() -> {
+                        Component errorMsg = Component.translatable("hyperscreenshots.notification.error", e.getMessage());
+                        if (minecraft.gui != null && minecraft.gui.getChat() != null) {
+                            minecraft.gui.getChat().addMessage(errorMsg);
+                        }
+                    });
+                }
+            });
+        } catch (Throwable t) {
+            image.close();
+            LOGGER.error("[Hyper Quality Screenshots] Failed to dispatch screenshot save to background pool", t);
+        }
     }
 
     private static File generateUniqueFile(File dir, String suffix) {

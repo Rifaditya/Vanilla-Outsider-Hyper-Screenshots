@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.1.4+26.3`** - Guard against NativeImage off-heap memory leak on executor rejection.
 - [ ] **`1.1.3+26.3`** - Expand automated tests for Auto-Hide Hand toggle and capture state.
 - [ ] **`1.1.2+26.3`** - Standardize translatable Auto-Hide Hand toggle notifications.
 - [ ] **`1.1.1+26.3`** - Add live Alt+F2 Auto-Hide Hand toggle shortcut.

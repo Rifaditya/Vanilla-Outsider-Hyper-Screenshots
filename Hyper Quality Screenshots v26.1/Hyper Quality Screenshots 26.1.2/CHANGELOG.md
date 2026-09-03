@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.4+26.1.2]
+
+### Fixed
+- Hardened asynchronous screenshot save dispatch with a strict executor rejection guard, guaranteeing immediate `NativeImage` off-heap memory deallocation if background thread execution fails or during JVM shutdown.
+
 ## [1.1.3+26.1.2]
 
 ### Added
