@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.6+26.2]
+
+### Added
+- Implemented capture concurrency guard and 300ms keypress debounce in `HyperCaptureManager` and `KeyboardMixin`, preventing rapid key bounce and auto-repeat from triggering overlapping supersampled render passes.
+
 ## [1.1.5+26.2]
 
 ### Fixed

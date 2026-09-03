@@ -45,11 +45,15 @@ public abstract class KeyboardMixin {
                 ci.cancel();
             } else if (isCtrlDown && config.instantMaxKeyEnabled) {
                 // Instant 16K QUHD Max Screenshot
-                HyperCaptureManager.getInstance().requestCapture(ResolutionPreset.SIXTEEN_K, true);
+                if (!HyperCaptureManager.getInstance().isBusy()) {
+                    HyperCaptureManager.getInstance().requestCapture(ResolutionPreset.SIXTEEN_K, true);
+                }
                 ci.cancel();
             } else if (config.resolutionPreset != ResolutionPreset.NORMAL) {
                 // Active Supersampled Preset Screenshot
-                HyperCaptureManager.getInstance().requestCapture(config.resolutionPreset, false);
+                if (!HyperCaptureManager.getInstance().isBusy()) {
+                    HyperCaptureManager.getInstance().requestCapture(config.resolutionPreset, false);
+                }
                 ci.cancel();
             }
         }

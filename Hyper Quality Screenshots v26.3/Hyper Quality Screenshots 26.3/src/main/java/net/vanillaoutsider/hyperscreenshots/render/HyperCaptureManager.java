@@ -18,6 +18,8 @@ public final class HyperCaptureManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(HyperCaptureManager.class);
     private static final HyperCaptureManager INSTANCE = new HyperCaptureManager();
 
+    private static final long CAPTURE_COOLDOWN_MS = 300L;
+    private long lastCaptureTimeMs = 0L;
     private final OffscreenFramebuffer offscreenFramebuffer = new OffscreenFramebuffer();
     private boolean captureRequested = false;
     private boolean capturing = false;
@@ -35,11 +37,27 @@ public final class HyperCaptureManager {
         return capturing;
     }
 
-    public void requestCapture(ResolutionPreset preset, boolean instantMax) {
+    public boolean isBusy() {
+        return capturing || captureRequested || (System.currentTimeMillis() - lastCaptureTimeMs < CAPTURE_COOLDOWN_MS);
+    }
+
+    public boolean requestCapture(ResolutionPreset preset, boolean instantMax) {
+        if (isBusy()) {
+            LOGGER.debug("[Hyper Quality Screenshots] Capture request ignored: capture busy or debounced");
+            return false;
+        }
+        this.lastCaptureTimeMs = System.currentTimeMillis();
         this.activePreset = (preset != null) ? preset : HyperScreenshotsConfig.get().resolutionPreset;
         this.isInstantMax = instantMax;
         this.captureRequested = true;
         LOGGER.debug("[Hyper Quality Screenshots] Capture requested for preset: {} (Instant Max: {})", activePreset, isInstantMax);
+        return true;
+    }
+
+    public void resetForTesting() {
+        this.capturing = false;
+        this.captureRequested = false;
+        this.lastCaptureTimeMs = 0L;
     }
 
     public boolean isCapturePending() {

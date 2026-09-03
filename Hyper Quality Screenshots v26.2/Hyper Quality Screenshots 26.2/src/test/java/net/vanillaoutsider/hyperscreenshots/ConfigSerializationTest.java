@@ -97,5 +97,24 @@ class ConfigSerializationTest {
         assertNotNull(manager);
         assertFalse(manager.isCapturing());
         assertFalse(manager.isCapturePending());
+        assertFalse(manager.isBusy());
+    }
+
+    @Test
+    @DisplayName("Assert capture manager debounce rejects concurrent and rapid requests")
+    void testCaptureManagerDebounce() {
+        net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager manager = net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager.getInstance();
+        manager.resetForTesting();
+
+        assertFalse(manager.isBusy());
+        assertTrue(manager.requestCapture(ResolutionPreset.FOUR_K, false));
+        assertTrue(manager.isBusy());
+
+        // Immediate subsequent request must be debounced / rejected
+        assertFalse(manager.requestCapture(ResolutionPreset.EIGHT_K, false));
+
+        // Clean up
+        manager.resetForTesting();
+        assertFalse(manager.isBusy());
     }
 }
