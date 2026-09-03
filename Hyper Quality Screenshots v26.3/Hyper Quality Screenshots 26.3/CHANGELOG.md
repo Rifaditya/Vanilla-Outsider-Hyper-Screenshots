@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.1+26.3]
+
+### Added
+- Live `Alt + F2` keyboard shortcut to toggle Auto-Hide Hand on the fly during gameplay with instant chat confirmation and persistent config saving.
+
 ## [1.1.0+26.3]
 
 ### Added

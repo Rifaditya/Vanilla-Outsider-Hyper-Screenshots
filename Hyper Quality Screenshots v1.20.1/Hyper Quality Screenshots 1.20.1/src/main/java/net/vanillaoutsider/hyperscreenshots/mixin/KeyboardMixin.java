@@ -2,10 +2,14 @@
 package net.vanillaoutsider.hyperscreenshots.mixin;
 
 import net.minecraft.client.KeyboardHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.vanillaoutsider.hyperscreenshots.config.HyperScreenshotsConfig;
 import net.vanillaoutsider.hyperscreenshots.config.ResolutionPreset;
 import net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -15,14 +19,29 @@ public abstract class KeyboardMixin {
     private static final int KEY_F2 = 291;
     private static final int ACTION_PRESS = 1;
     private static final int MOD_CONTROL = 2;
+    private static final int MOD_ALT = 4;
+
+    @Shadow
+    @Final
+    private Minecraft minecraft;
 
     @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)
     private void onKeyPress(long handle, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
         if (action == ACTION_PRESS && key == KEY_F2) {
             HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
             boolean isCtrlDown = (modifiers & MOD_CONTROL) != 0;
+            boolean isAltDown = (modifiers & MOD_ALT) != 0;
 
-            if (isCtrlDown && config.instantMaxKeyEnabled) {
+            if (isAltDown) {
+                // Live Toggle: Auto-Hide Hand
+                config.autoHideHand = !config.autoHideHand;
+                config.save();
+                Component feedback = Component.literal("[Hyper Screenshots] Auto-Hide Hand: " + (config.autoHideHand ? "Enabled" : "Disabled"));
+                if (this.minecraft.gui != null && this.minecraft.gui.getChat() != null) {
+                    this.minecraft.gui.getChat().addMessage(feedback);
+                }
+                ci.cancel();
+            } else if (isCtrlDown && config.instantMaxKeyEnabled) {
                 // Instant 16K QUHD Max Screenshot
                 HyperCaptureManager.getInstance().requestCapture(ResolutionPreset.SIXTEEN_K, true);
                 ci.cancel();
