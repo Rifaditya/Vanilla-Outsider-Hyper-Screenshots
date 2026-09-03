@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class HyperScreenshotsConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(HyperScreenshotsConfig.class);
@@ -69,16 +71,25 @@ public class HyperScreenshotsConfig {
     public synchronized void save() {
         validate();
         Path configFile = getConfigPath();
+        Path tempFile = configFile.resolveSibling(configFile.getFileName() + ".tmp");
         try {
             if (configFile.getParent() != null) {
                 Files.createDirectories(configFile.getParent());
             }
-            try (BufferedWriter writer = Files.newBufferedWriter(configFile)) {
+            try (BufferedWriter writer = Files.newBufferedWriter(tempFile)) {
                 GSON.toJson(this, writer);
-                LOGGER.debug("[Hyper Quality Screenshots] Saved configuration to {}", configFile.getFileName());
             }
+            try {
+                Files.move(tempFile, configFile, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException e) {
+                Files.move(tempFile, configFile, StandardCopyOption.REPLACE_EXISTING);
+            }
+            LOGGER.debug("[Hyper Quality Screenshots] Atomically saved configuration to {}", configFile.getFileName());
         } catch (IOException e) {
             LOGGER.error("[Hyper Quality Screenshots] Failed to save config to {}", configFile, e);
+            try {
+                Files.deleteIfExists(tempFile);
+            } catch (IOException ignored) {}
         }
     }
 

@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.5+1.20.1]
+
+### Fixed
+- Hardened configuration file saving with atomic file replacement (`.tmp` staging + `StandardCopyOption.ATOMIC_MOVE`), eliminating truncated or corrupted configuration files on sudden game exit.
+
 ## [1.1.4+1.20.1]
 
 ### Fixed

@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.1.5+26.1.2`** - Atomic configuration file persistence.
 - [ ] **`1.1.4+26.1.2`** - Guard against NativeImage off-heap memory leak on executor rejection.
 - [ ] **`1.1.3+26.1.2`** - Expand automated tests for Auto-Hide Hand toggle and capture state.
 - [ ] **`1.1.2+26.1.2`** - Standardize translatable Auto-Hide Hand toggle notifications.
