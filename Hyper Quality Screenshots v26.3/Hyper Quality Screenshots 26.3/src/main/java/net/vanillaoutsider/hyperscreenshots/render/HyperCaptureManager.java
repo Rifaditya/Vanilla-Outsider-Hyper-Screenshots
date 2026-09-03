@@ -4,6 +4,7 @@ package net.vanillaoutsider.hyperscreenshots.render;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
@@ -82,7 +83,11 @@ public final class HyperCaptureManager {
         int originalGuiScale = window.getGuiScale();
         ResolutionPreset.ResolutionDimensions dimensions = preset.calculateDimensions(originalWidth, originalHeight, config.customMultiplier);
 
-        LOGGER.info("[Hyper Quality Screenshots] Executing {} capture ({}x{}) with proportional UI scale", preset.getDisplayName(), dimensions.width(), dimensions.height());
+        // Hardware Bounds Query & Aspect-Preserving Clamp
+        int maxTextureSize = getMaxSupportedTextureSize();
+        ResolutionPreset.ResolutionDimensions effectiveDimensions = clampToHardwareBounds(dimensions, maxTextureSize, config, minecraft);
+
+        LOGGER.info("[Hyper Quality Screenshots] Executing {} capture ({}x{}) with proportional UI scale", preset.getDisplayName(), effectiveDimensions.width(), effectiveDimensions.height());
 
         // Handle auto-hide HUD if configured
         if (config.autoHideHud && minecraft.gui != null && minecraft.gui.hud != null) {
@@ -109,22 +114,20 @@ public final class HyperCaptureManager {
                 });
             } else {
                 // Supersampled resolution render pass (World + UI / Screens)
-                ResolutionPreset.TileGrid grid = ResolutionPreset.getSuggestedTileGrid(dimensions.width(), dimensions.height());
+                ResolutionPreset.TileGrid grid = ResolutionPreset.getSuggestedTileGrid(effectiveDimensions.width(), effectiveDimensions.height());
                 
                 if (grid.getTotalTiles() > 1 && config.hardwareTransparencyAlerts) {
                     Component tilingMsg = Component.translatable("hyperscreenshots.notification.tiling_active", grid.columns(), grid.rows());
-                    if (minecraft.gui != null && minecraft.gui.hud != null) {
-                        minecraft.gui.hud.getChat().addClientSystemMessage(tilingMsg);
-                    }
+                    sendSystemChatMessage(minecraft, tilingMsg);
                 }
 
-                float scaleFactor = (float) dimensions.width() / (float) Math.max(1, originalWidth);
+                float scaleFactor = (float) effectiveDimensions.width() / (float) Math.max(1, originalWidth);
                 int targetGuiScale = Math.max(1, Math.round(originalGuiScale * scaleFactor));
 
-                window.setWidth(dimensions.width());
-                window.setHeight(dimensions.height());
+                window.setWidth(effectiveDimensions.width());
+                window.setHeight(effectiveDimensions.height());
                 window.setGuiScale(targetGuiScale);
-                target.resize(dimensions.width(), dimensions.height());
+                target.resize(effectiveDimensions.width(), effectiveDimensions.height());
                 targetResized = true;
 
                 minecraft.gameRenderer.update(deltaTracker);
@@ -138,7 +141,7 @@ public final class HyperCaptureManager {
                     target.resize(originalWidth, originalHeight);
                     restoreCaptureState(minecraft, config);
 
-                    AsyncScreenshotWriter.dispatchSave(image, preset, dimensions.width(), dimensions.height());
+                    AsyncScreenshotWriter.dispatchSave(image, preset, effectiveDimensions.width(), effectiveDimensions.height());
                 });
             }
         } catch (Exception e) {
@@ -151,9 +154,75 @@ public final class HyperCaptureManager {
             }
             restoreCaptureState(minecraft, config);
             Component errorMsg = Component.translatable("hyperscreenshots.notification.error", e.getMessage());
-            if (minecraft.gui != null && minecraft.gui.hud != null) {
-                minecraft.gui.hud.getChat().addClientSystemMessage(errorMsg);
+            sendSystemChatMessage(minecraft, errorMsg);
+        }
+    }
+
+    public static int getMaxSupportedTextureSize() {
+        try {
+            Object device = RenderSystem.getDevice();
+            if (device != null) {
+                for (java.lang.reflect.Method m : device.getClass().getMethods()) {
+                    if (m.getName().toLowerCase().contains("texturesize") && m.getParameterCount() == 0 && m.getReturnType() == int.class) {
+                        return (int) m.invoke(device);
+                    }
+                }
             }
+        } catch (Throwable t) {
+            LOGGER.debug("[Hyper Quality Screenshots] Failed to query GPU device max texture size", t);
+        }
+        return 8192;
+    }
+
+    public static ResolutionPreset.ResolutionDimensions clampToHardwareBounds(
+            ResolutionPreset.ResolutionDimensions dimensions,
+            int maxTextureSize,
+            HyperScreenshotsConfig config,
+            Minecraft minecraft
+    ) {
+        if (dimensions.width() <= maxTextureSize && dimensions.height() <= maxTextureSize) {
+            return dimensions;
+        }
+
+        double aspectRatio = (double) dimensions.width() / (double) dimensions.height();
+        int clampedW = dimensions.width();
+        int clampedH = dimensions.height();
+
+        if (clampedW > maxTextureSize) {
+            clampedW = maxTextureSize;
+            clampedH = (int) Math.round(clampedW / aspectRatio);
+        }
+        if (clampedH > maxTextureSize) {
+            clampedH = maxTextureSize;
+            clampedW = (int) Math.round(clampedH * aspectRatio);
+        }
+
+        if (clampedW % 2 != 0) clampedW -= 1;
+        if (clampedH % 2 != 0) clampedH -= 1;
+
+        ResolutionPreset.ResolutionDimensions clamped = new ResolutionPreset.ResolutionDimensions(
+                Math.max(128, clampedW),
+                Math.max(128, clampedH)
+        );
+
+        LOGGER.warn("[Hyper Quality Screenshots] Requested resolution {} exceeds GPU limit ({}). Clamping to {} to prevent OpenGL driver crash.",
+                dimensions.getFormattedString(), maxTextureSize, clamped.getFormattedString());
+
+        if (config != null && config.hardwareTransparencyAlerts && minecraft != null) {
+            Component clampAlert = Component.translatable(
+                    "hyperscreenshots.notification.hardware_clamped",
+                    String.valueOf(maxTextureSize),
+                    clamped.getFormattedString()
+            );
+            sendSystemChatMessage(minecraft, clampAlert);
+        }
+
+        return clamped;
+    }
+
+    private static void sendSystemChatMessage(Minecraft minecraft, Component message) {
+        if (minecraft != null && minecraft.gui != null && minecraft.gui.hud != null) {
+            minecraft.gui.hud.getChat().addClientSystemMessage(message);
         }
     }
 

@@ -117,4 +117,28 @@ class ConfigSerializationTest {
         manager.resetForTesting();
         assertFalse(manager.isBusy());
     }
+
+    @Test
+    @DisplayName("Assert hardware bounds safely clamps oversized dimensions while preserving aspect ratio")
+    void testHardwareBoundsClamping() {
+        ResolutionPreset.ResolutionDimensions oversized = new ResolutionPreset.ResolutionDimensions(15360, 8640);
+        int maxTextureLimit = 8192;
+
+        ResolutionPreset.ResolutionDimensions clamped = net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager.clampToHardwareBounds(
+                oversized, maxTextureLimit, null, null
+        );
+
+        assertTrue(clamped.width() <= maxTextureLimit);
+        assertTrue(clamped.height() <= maxTextureLimit);
+        assertEquals(0, clamped.width() % 2, "Clamped width must be even");
+        assertEquals(0, clamped.height() % 2, "Clamped height must be even");
+
+        // Verify normal dimensions within limit remain untouched
+        ResolutionPreset.ResolutionDimensions normal = new ResolutionPreset.ResolutionDimensions(3840, 2160);
+        ResolutionPreset.ResolutionDimensions unclamped = net.vanillaoutsider.hyperscreenshots.render.HyperCaptureManager.clampToHardwareBounds(
+                normal, maxTextureLimit, null, null
+        );
+        assertEquals(normal.width(), unclamped.width());
+        assertEquals(normal.height(), unclamped.height());
+    }
 }

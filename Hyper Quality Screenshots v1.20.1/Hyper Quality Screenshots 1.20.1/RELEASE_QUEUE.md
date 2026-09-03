@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.1.7+1.20.1`** - Hardware bounds safety clamping and GPU limit guard.
 - [ ] **`1.1.6+1.20.1`** - Capture concurrency and debounce guard.
 - [ ] **`1.1.5+1.20.1`** - Atomic configuration file persistence.
 - [ ] **`1.1.4+1.20.1`** - Guard against NativeImage off-heap memory leak on executor rejection.

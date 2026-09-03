@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.7+1.21.1]
+
+### Added
+- Integrated OpenGL hardware bounds checking and automatic safety clamping in `HyperCaptureManager`, querying `RenderSystem.maxSupportedTextureSize()` and safely clamping oversized resolutions preserving aspect ratio to prevent OpenGL driver crashes.
+- Added translatable notification `hyperscreenshots.notification.hardware_clamped` informing the user when requested resolution exceeds hardware texture bounds.
+
 ## [1.1.6+1.21.1]
 
 ### Added
