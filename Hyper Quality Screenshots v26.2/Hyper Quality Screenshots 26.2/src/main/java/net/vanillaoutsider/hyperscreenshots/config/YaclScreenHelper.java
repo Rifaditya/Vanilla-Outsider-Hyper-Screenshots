@@ -2,6 +2,7 @@
 package net.vanillaoutsider.hyperscreenshots.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import dev.isxander.yacl3.api.ButtonOption;
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionDescription;
@@ -9,6 +10,7 @@ import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.api.controller.EnumDropdownControllerBuilder;
 import dev.isxander.yacl3.api.controller.FloatSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -23,31 +25,38 @@ public final class YaclScreenHelper {
     public static Screen createScreen(Screen parent) {
         HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
 
+        ConfigCategory.Builder resolutionCategory = ConfigCategory.createBuilder()
+            .name(Component.translatable("config.hyperscreenshots.category.resolution"))
+            .tooltip(Component.translatable("config.hyperscreenshots.category.resolution.tooltip"));
+
+        Option<?> supportButton = createSupportButton();
+        if (supportButton != null) {
+            resolutionCategory.option(supportButton);
+        }
+
+        resolutionCategory
+            // Preset Dropdown
+            .option(Option.<ResolutionPreset>createBuilder()
+                .name(Component.translatable("config.hyperscreenshots.preset"))
+                .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.preset.desc")))
+                .binding(ResolutionPreset.FOUR_K, () -> config.resolutionPreset, val -> config.resolutionPreset = val)
+                .controller(EnumDropdownControllerBuilder::create)
+                .build())
+
+            // Custom Multiplier Slider
+            .option(Option.<Float>createBuilder()
+                .name(Component.translatable("config.hyperscreenshots.customMultiplier"))
+                .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.customMultiplier.desc")))
+                .binding(2.0f, () -> config.customMultiplier, val -> config.customMultiplier = val)
+                .controller(opt -> FloatSliderControllerBuilder.create(opt).range(1.0f, 16.0f).step(0.5f))
+                .build());
+
         return YetAnotherConfigLib.createBuilder()
             .title(Component.translatable("config.hyperscreenshots.title"))
             .save(config::save)
 
             // === 1. RESOLUTION & SCALING ===
-            .category(ConfigCategory.createBuilder()
-                .name(Component.translatable("config.hyperscreenshots.category.resolution"))
-                .tooltip(Component.translatable("config.hyperscreenshots.category.resolution.tooltip"))
-
-                // Preset Dropdown
-                .option(Option.<ResolutionPreset>createBuilder()
-                    .name(Component.translatable("config.hyperscreenshots.preset"))
-                    .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.preset.desc")))
-                    .binding(ResolutionPreset.FOUR_K, () -> config.resolutionPreset, val -> config.resolutionPreset = val)
-                    .controller(EnumDropdownControllerBuilder::create)
-                    .build())
-
-                // Custom Multiplier Slider
-                .option(Option.<Float>createBuilder()
-                    .name(Component.translatable("config.hyperscreenshots.customMultiplier"))
-                    .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.customMultiplier.desc")))
-                    .binding(2.0f, () -> config.customMultiplier, val -> config.customMultiplier = val)
-                    .controller(opt -> FloatSliderControllerBuilder.create(opt).range(1.0f, 16.0f).step(0.5f))
-                    .build())
-                .build())
+            .category(resolutionCategory.build())
 
             // === 2. CAPTURE & INTERFACE ===
             .category(ConfigCategory.createBuilder()
@@ -103,5 +112,25 @@ public final class YaclScreenHelper {
 
             .build()
             .generateScreen(parent);
+    }
+
+    private static Option<?> createSupportButton() {
+        try {
+            Class<?> helperClass = Class.forName("net.dasik.social.api.config.DasikSupportHelper");
+            Object button = helperClass.getMethod("createYaclButton").invoke(null);
+            if (button instanceof Option<?>) {
+                return (Option<?>) button;
+            }
+        } catch (Throwable ignored) {}
+
+        try {
+            return ButtonOption.createBuilder()
+                .name(Component.translatable("dasiklibrary.support.kofi.button"))
+                .description(OptionDescription.of(Component.translatable("dasiklibrary.support.kofi.tooltip")))
+                .action((screen, opt) -> ConfirmLinkScreen.confirmLinkNow(screen, "https://ko-fi.com/dasikigaijin"))
+                .build();
+        } catch (Throwable ignored) {
+            return null;
+        }
     }
 }

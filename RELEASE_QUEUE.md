@@ -2,6 +2,11 @@
 
 This file tracks publication across all Minecraft version anchors for **Hyper Quality Screenshots**.
 
+## 🚀 Active Release Queue
+
+- [ ] **`1.2.1+26.3`** - **In-Game Creator Support Button:** Injected top-pinned Ko-fi support button at index 0 of Category 1 (Resolution & Supersampling) with fallback support.
+- [ ] **`1.2.1+26.2`** - **In-Game Creator Support Button:** Injected top-pinned Ko-fi support button at index 0 of Category 1 (Resolution & Supersampling) with fallback support.
+
 ## 🚀 Initial Release Queue (v1.0.0)
 
 - [ ] **`1.0.0+26.3`** (2026-08-26) - MC 26.3 Snapshot Sovereign Anchor build.

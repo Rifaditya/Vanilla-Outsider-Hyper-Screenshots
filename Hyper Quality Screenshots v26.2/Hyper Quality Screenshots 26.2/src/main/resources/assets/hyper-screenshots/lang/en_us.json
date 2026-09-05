@@ -41,5 +41,8 @@
   "hyperscreenshots.command.toggle_changed": "%s is now %s.",
   "hyperscreenshots.command.invalid_toggle": "Unknown setting '%s'. Available: hud, hand, instantmax, sound, alerts.",
   "hyperscreenshots.command.reloaded": "Configuration successfully reloaded from disk.",
-  "hyperscreenshots.command.capture_triggered": "Triggered screenshot capture with preset: %s."
+  "hyperscreenshots.command.capture_triggered": "Triggered screenshot capture with preset: %s.",
+
+  "dasiklibrary.support.kofi.button": "☕ Support Solo Dev on Ko-fi",
+  "dasiklibrary.support.kofi.tooltip": "Opens https://ko-fi.com/dasikigaijin in your default browser. Thank you for your support!"
 }
