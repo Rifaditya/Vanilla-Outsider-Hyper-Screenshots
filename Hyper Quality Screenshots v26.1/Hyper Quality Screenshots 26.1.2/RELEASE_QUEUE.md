@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.2.1+26.1.2`** (2026-09-05) - - **Ko-fi Support Integration**: Injected top-pinned Ko-fi creator support button into YACL in-game configuration screen with native fallback.
 - [ ] **`1.2.0+26.1.2`** - Brigadier client command suite (/hyperscreenshots, /hypershot, /hqss).
 - [ ] **`1.1.7+26.1.2`** - Hardware bounds safety clamping and GPU limit guard.
 - [ ] **`1.1.6+26.1.2`** - Capture concurrency and debounce guard.
