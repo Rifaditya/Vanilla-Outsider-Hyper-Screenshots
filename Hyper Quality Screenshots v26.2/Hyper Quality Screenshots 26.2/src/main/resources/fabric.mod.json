@@ -1,46 +1,52 @@
 {
-  "schemaVersion": 1,
-  "id": "hyper-screenshots",
-  "version": "${version}",
-  "name": "Hyper Quality Screenshots",
-  "description": "Capture ultra-high-resolution screenshots (Normal, 2K, 4K, 8K, 16K) with offscreen framebuffer supersampling, chunked tile rendering, and asynchronous disk writes.",
-  "authors": [
-    "Dasik (Rifaditya)"
-  ],
-  "contact": {
-    "homepage": "https://modrinth.com/mod/hyper-screenshots",
-    "sources": "https://github.com/Rifaditya/Vanilla-Outsider-Hyper-Screenshots",
-    "issues": "https://github.com/Rifaditya/Vanilla-Outsider-Hyper-Screenshots/issues"
-  },
-  "license": "GPL-3.0-or-later",
-  "icon": "assets/hyper-screenshots/icon.png",
-  "environment": "client",
-  "entrypoints": {
-    "client": [
-      "net.vanillaoutsider.hyperscreenshots.HyperScreenshotsClient"
+    "schemaVersion": 1,
+    "id": "hyper-screenshots",
+    "version": "${version}",
+    "name": "Hyper Quality Screenshots",
+    "description": "Capture ultra-high-resolution screenshots (Normal, 2K, 4K, 8K, 16K) with offscreen framebuffer supersampling, chunked tile rendering, and asynchronous disk writes.",
+    "authors": [
+        "Dasik (Rifaditya)"
     ],
-    "modmenu": [
-      "net.vanillaoutsider.hyperscreenshots.config.ModMenuIntegration"
-    ]
-  },
-  "mixins": [
-    "hyper-screenshots.mixins.json"
-  ],
-  "depends": {
-    "fabricloader": ">=0.19.1",
-    "minecraft": ">=26.2-",
-    "java": ">=25",
-    "fabric-api": "*"
-  },
-  "suggests": {
-    "yet-another-config-lib": "*",
-    "yet_another_config_lib_v3": "*",
-    "modmenu": "*"
-  },
-  "custom": {
-    "modrinth": {
-      "projectId": "hyper-screenshots",
-      "slug": "hyper-screenshots"
+    "contact": {
+        "homepage": "https://modrinth.com/mod/hyper-screenshots",
+        "sources": "https://github.com/Rifaditya/Vanilla-Outsider-Hyper-Screenshots",
+        "issues": "https://github.com/Rifaditya/Vanilla-Outsider-Hyper-Screenshots/issues"
+    },
+    "license": "GPL-3.0-or-later",
+    "icon": "assets/hyper-screenshots/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            "net.vanillaoutsider.hyperscreenshots.HyperScreenshotsClient"
+        ],
+        "modmenu": [
+            "net.vanillaoutsider.hyperscreenshots.config.ModMenuIntegration"
+        ]
+    },
+    "mixins": [
+        "hyper-screenshots.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.19.1",
+        "minecraft": ">=26.2-",
+        "java": ">=25",
+        "fabric-api": "*"
+    },
+    "suggests": {
+        "yet-another-config-lib": "*",
+        "yet_another_config_lib_v3": "*",
+        "modmenu": "*"
+    },
+    "custom": {
+        "modrinth": {
+            "projectId": "hyper-screenshots",
+            "slug": "hyper-screenshots"
+        },
+        "modmenu": {
+            "links": {
+                "modmenu.donate": "https://ko-fi.com/dasikigaijin",
+                "modmenu.kofi": "https://ko-fi.com/dasikigaijin"
+            }
+        }
     }
-  }
 }
