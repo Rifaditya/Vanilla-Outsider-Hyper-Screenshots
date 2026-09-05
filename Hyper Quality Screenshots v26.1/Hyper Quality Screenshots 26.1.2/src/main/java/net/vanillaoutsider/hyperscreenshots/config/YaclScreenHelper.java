@@ -51,6 +51,66 @@ public final class YaclScreenHelper {
                 .controller(opt -> FloatSliderControllerBuilder.create(opt).range(1.0f, 16.0f).step(0.5f))
                 .build());
 
+        ConfigCategory.Builder captureCategory = ConfigCategory.createBuilder()
+            .name(Component.translatable("config.hyperscreenshots.category.capture"))
+            .tooltip(Component.translatable("config.hyperscreenshots.category.capture.tooltip"));
+
+        Option<?> captureSupportButton = createSupportButton();
+        if (captureSupportButton != null) {
+            captureCategory.option(captureSupportButton);
+        }
+
+        captureCategory
+            // Auto-Hide HUD
+            .option(Option.<Boolean>createBuilder()
+                .name(Component.translatable("config.hyperscreenshots.autoHideHud"))
+                .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.autoHideHud.desc")))
+                .binding(false, () -> config.autoHideHud, val -> config.autoHideHud = val)
+                .controller(TickBoxControllerBuilder::create)
+                .build())
+
+            // Auto-Hide Hand
+            .option(Option.<Boolean>createBuilder()
+                .name(Component.translatable("config.hyperscreenshots.autoHideHand"))
+                .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.autoHideHand.desc")))
+                .binding(false, () -> config.autoHideHand, val -> config.autoHideHand = val)
+                .controller(TickBoxControllerBuilder::create)
+                .build())
+
+            // Instant Max Keybind (Ctrl + F2)
+            .option(Option.<Boolean>createBuilder()
+                .name(Component.translatable("config.hyperscreenshots.instantMaxKeyEnabled"))
+                .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.instantMaxKeyEnabled.desc")))
+                .binding(true, () -> config.instantMaxKeyEnabled, val -> config.instantMaxKeyEnabled = val)
+                .controller(TickBoxControllerBuilder::create)
+                .build());
+
+        ConfigCategory.Builder feedbackCategory = ConfigCategory.createBuilder()
+            .name(Component.translatable("config.hyperscreenshots.category.feedback"))
+            .tooltip(Component.translatable("config.hyperscreenshots.category.feedback.tooltip"));
+
+        Option<?> feedbackSupportButton = createSupportButton();
+        if (feedbackSupportButton != null) {
+            feedbackCategory.option(feedbackSupportButton);
+        }
+
+        feedbackCategory
+            // Audio Chime
+            .option(Option.<Boolean>createBuilder()
+                .name(Component.translatable("config.hyperscreenshots.playSoundOnSuccess"))
+                .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.playSoundOnSuccess.desc")))
+                .binding(true, () -> config.playSoundOnSuccess, val -> config.playSoundOnSuccess = val)
+                .controller(TickBoxControllerBuilder::create)
+                .build())
+
+            // Hardware Transparency Alerts
+            .option(Option.<Boolean>createBuilder()
+                .name(Component.translatable("config.hyperscreenshots.hardwareTransparencyAlerts"))
+                .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.hardwareTransparencyAlerts.desc")))
+                .binding(true, () -> config.hardwareTransparencyAlerts, val -> config.hardwareTransparencyAlerts = val)
+                .controller(TickBoxControllerBuilder::create)
+                .build());
+
         return YetAnotherConfigLib.createBuilder()
             .title(Component.translatable("config.hyperscreenshots.title"))
             .save(config::save)
@@ -59,56 +119,10 @@ public final class YaclScreenHelper {
             .category(resolutionCategory.build())
 
             // === 2. CAPTURE & INTERFACE ===
-            .category(ConfigCategory.createBuilder()
-                .name(Component.translatable("config.hyperscreenshots.category.capture"))
-                .tooltip(Component.translatable("config.hyperscreenshots.category.capture.tooltip"))
-
-                // Auto-Hide HUD
-                .option(Option.<Boolean>createBuilder()
-                    .name(Component.translatable("config.hyperscreenshots.autoHideHud"))
-                    .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.autoHideHud.desc")))
-                    .binding(false, () -> config.autoHideHud, val -> config.autoHideHud = val)
-                    .controller(TickBoxControllerBuilder::create)
-                    .build())
-
-                // Auto-Hide Hand
-                .option(Option.<Boolean>createBuilder()
-                    .name(Component.translatable("config.hyperscreenshots.autoHideHand"))
-                    .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.autoHideHand.desc")))
-                    .binding(false, () -> config.autoHideHand, val -> config.autoHideHand = val)
-                    .controller(TickBoxControllerBuilder::create)
-                    .build())
-
-                // Instant Max Keybind (Ctrl + F2)
-                .option(Option.<Boolean>createBuilder()
-                    .name(Component.translatable("config.hyperscreenshots.instantMaxKeyEnabled"))
-                    .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.instantMaxKeyEnabled.desc")))
-                    .binding(true, () -> config.instantMaxKeyEnabled, val -> config.instantMaxKeyEnabled = val)
-                    .controller(TickBoxControllerBuilder::create)
-                    .build())
-                .build())
+            .category(captureCategory.build())
 
             // === 3. FEEDBACK & DIAGNOSTICS ===
-            .category(ConfigCategory.createBuilder()
-                .name(Component.translatable("config.hyperscreenshots.category.feedback"))
-                .tooltip(Component.translatable("config.hyperscreenshots.category.feedback.tooltip"))
-
-                // Audio Chime
-                .option(Option.<Boolean>createBuilder()
-                    .name(Component.translatable("config.hyperscreenshots.playSoundOnSuccess"))
-                    .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.playSoundOnSuccess.desc")))
-                    .binding(true, () -> config.playSoundOnSuccess, val -> config.playSoundOnSuccess = val)
-                    .controller(TickBoxControllerBuilder::create)
-                    .build())
-
-                // Hardware Transparency Alerts
-                .option(Option.<Boolean>createBuilder()
-                    .name(Component.translatable("config.hyperscreenshots.hardwareTransparencyAlerts"))
-                    .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.hardwareTransparencyAlerts.desc")))
-                    .binding(true, () -> config.hardwareTransparencyAlerts, val -> config.hardwareTransparencyAlerts = val)
-                    .controller(TickBoxControllerBuilder::create)
-                    .build())
-                .build())
+            .category(feedbackCategory.build())
 
             .build()
             .generateScreen(parent);
