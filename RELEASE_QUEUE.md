@@ -9,6 +9,7 @@ This file tracks publication across all Minecraft version anchors for **Hyper Qu
 - [ ] **`1.2.1+26.1.2`** - **In-Game Creator Support Button:** Injected top-pinned Ko-fi support button at index 0 of Category 1 (Resolution & Supersampling) with fallback support.
 - [ ] **`1.2.1+1.21.11`** - **In-Game Creator Support Button:** Injected top-pinned Ko-fi support button at index 0 of Category 1 (Resolution & Supersampling) with fallback support.
 - [ ] **`1.2.1+1.21.1`** - **In-Game Creator Support Button:** Injected top-pinned Ko-fi support button at index 0 of Category 1 (Resolution & Supersampling) with fallback support.
+- [ ] **`1.2.1+1.20.1`** - **In-Game Creator Support Button:** Injected top-pinned Ko-fi support button at index 0 of Category 1 (Resolution & Supersampling) with fallback support.
 
 ## 🚀 Initial Release Queue (v1.0.0)
 

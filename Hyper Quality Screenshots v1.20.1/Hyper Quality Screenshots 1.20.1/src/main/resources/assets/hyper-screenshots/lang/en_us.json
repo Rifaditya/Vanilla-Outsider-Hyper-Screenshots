@@ -21,6 +21,9 @@
   "config.hyperscreenshots.hardwareTransparencyAlerts": "Hardware Transparency Alerts",
   "config.hyperscreenshots.hardwareTransparencyAlerts.desc": "Shows informative chat messages when tiled frustum rendering is engaged.",
 
+  "dasiklibrary.support.kofi.button": "☕ Support Solo Dev on Ko-fi",
+  "dasiklibrary.support.kofi.tooltip": "Enjoying the mod? Support solo development on Ko-fi!",
+
   "hyperscreenshots.preset.normal": "Normal (Native)",
   "hyperscreenshots.preset.two_k": "2K QHD (1440p)",
   "hyperscreenshots.preset.four_k": "4K UHD (2160p)",

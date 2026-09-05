@@ -2,6 +2,7 @@
 package net.vanillaoutsider.hyperscreenshots.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import dev.isxander.yacl3.api.ButtonOption;
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionDescription;
@@ -10,6 +11,7 @@ import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
 import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
 import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -28,35 +30,43 @@ public final class YaclScreenHelper {
     private static Screen buildScreen(Screen parent) {
         HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
 
+        OptionGroup.Builder presetsGroup = OptionGroup.createBuilder()
+                .name(Component.translatable("config.hyperscreenshots.group.presets"));
+
+        Option<?> supportButton = createSupportButton();
+        if (supportButton != null) {
+            presetsGroup.option(supportButton);
+        }
+
+        presetsGroup
+                .option(Option.<ResolutionPreset>createBuilder()
+                        .name(Component.translatable("config.hyperscreenshots.resolutionPreset"))
+                        .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.resolutionPreset.desc")))
+                        .binding(
+                                ResolutionPreset.FOUR_K,
+                                () -> config.resolutionPreset,
+                                val -> config.resolutionPreset = val
+                        )
+                        .controller(opt -> EnumControllerBuilder.create(opt).enumClass(ResolutionPreset.class))
+                        .build())
+                .option(Option.<Float>createBuilder()
+                        .name(Component.translatable("config.hyperscreenshots.customMultiplier"))
+                        .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.customMultiplier.desc")))
+                        .binding(
+                                2.0f,
+                                () -> config.customMultiplier,
+                                val -> config.customMultiplier = val
+                        )
+                        .controller(opt -> FloatFieldControllerBuilder.create(opt).min(1.0f).max(16.0f))
+                        .build());
+
         return YetAnotherConfigLib.createBuilder()
                 .title(Component.translatable("config.hyperscreenshots.title"))
                 .save(config::save)
                 // --- CATEGORY 1: RESOLUTION & CAPTURE ---
                 .category(ConfigCategory.createBuilder()
                         .name(Component.translatable("config.hyperscreenshots.category.capture"))
-                        .group(OptionGroup.createBuilder()
-                                .name(Component.translatable("config.hyperscreenshots.group.presets"))
-                                .option(Option.<ResolutionPreset>createBuilder()
-                                        .name(Component.translatable("config.hyperscreenshots.resolutionPreset"))
-                                        .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.resolutionPreset.desc")))
-                                        .binding(
-                                                ResolutionPreset.FOUR_K,
-                                                () -> config.resolutionPreset,
-                                                val -> config.resolutionPreset = val
-                                        )
-                                        .controller(opt -> EnumControllerBuilder.create(opt).enumClass(ResolutionPreset.class))
-                                        .build())
-                                .option(Option.<Float>createBuilder()
-                                        .name(Component.translatable("config.hyperscreenshots.customMultiplier"))
-                                        .description(OptionDescription.of(Component.translatable("config.hyperscreenshots.customMultiplier.desc")))
-                                        .binding(
-                                                2.0f,
-                                                () -> config.customMultiplier,
-                                                val -> config.customMultiplier = val
-                                        )
-                                        .controller(opt -> FloatFieldControllerBuilder.create(opt).min(1.0f).max(16.0f))
-                                        .build())
-                                .build())
+                        .group(presetsGroup.build())
                         .group(OptionGroup.createBuilder()
                                 .name(Component.translatable("config.hyperscreenshots.group.behavior"))
                                 .option(Option.<Boolean>createBuilder()
@@ -120,5 +130,25 @@ public final class YaclScreenHelper {
                         .build())
                 .build()
                 .generateScreen(parent);
+    }
+
+    private static Option<?> createSupportButton() {
+        try {
+            Class<?> helperClass = Class.forName("net.dasik.social.api.config.DasikSupportHelper");
+            Object button = helperClass.getMethod("createYaclButton").invoke(null);
+            if (button instanceof Option<?>) {
+                return (Option<?>) button;
+            }
+        } catch (Throwable ignored) {}
+
+        try {
+            return ButtonOption.createBuilder()
+                .name(Component.translatable("dasiklibrary.support.kofi.button"))
+                .description(OptionDescription.of(Component.translatable("dasiklibrary.support.kofi.tooltip")))
+                .action((screen, opt) -> ConfirmLinkScreen.confirmLinkNow("https://ko-fi.com/dasikigaijin", screen, true))
+                .build();
+        } catch (Throwable ignored) {
+            return null;
+        }
     }
 }
