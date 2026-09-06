@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.vanillaoutsider.hyperscreenshots.util;
 
 import org.slf4j.Logger;

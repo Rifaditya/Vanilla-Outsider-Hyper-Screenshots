@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.3+26.2] - 2026-09-05
+
+### Fixed
+- **Client Side-Safety Annotations**: Annotated `YaclScreenHelper`, `ModMenuIntegration`, and `HyperScreenshotsClient` with `@Environment(EnvType.CLIENT)`, eliminating dedicated server classloading hazards and aligning with the Client Side-Safety Standard.
+
 ## [1.2.0+26.2]
 
 ### Added

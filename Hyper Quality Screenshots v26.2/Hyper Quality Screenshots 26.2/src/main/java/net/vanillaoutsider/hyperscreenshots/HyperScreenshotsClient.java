@@ -2,10 +2,13 @@
 package net.vanillaoutsider.hyperscreenshots;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.vanillaoutsider.hyperscreenshots.config.HyperScreenshotsConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Environment(EnvType.CLIENT)
 public class HyperScreenshotsClient implements ClientModInitializer {
     public static final String MOD_ID = "hyper-screenshots";
     public static final String MOD_NAME = "Hyper Quality Screenshots";
