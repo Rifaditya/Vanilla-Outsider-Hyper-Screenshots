@@ -6,6 +6,15 @@
 
 ---
 
+* [[🏛️ MC 1.20.1 Portal|1.20.1-Home]]
+* [[🌿 MC 1.21.1 Portal|1.21.1-Home]]
+* [[❄️ MC 1.21.11 Portal|1.21.11-Home]]
+* [[👑 MC 26.1 Portal|26.1-Home]]
+* [[🎯 MC 26.2 Portal|26.2-Home]]
+* [[⚡ MC 26.3 Portal|26.3-Home]]
+
+---
+
 <details>
 <summary><b>🇨🇳 简体中文 (Simplified Chinese)</b></summary>
 
@@ -13,6 +22,15 @@
 * [[🗺️ 版本兼容性与生命周期矩阵|zh_cn-Version-Compatibility]]
 * [[🖼️ 分块帧缓冲区超采样引擎|zh_cn-Tiled-Framebuffer-Engine]]
 * [[⚙️ 配置系统与分辨率预设|zh_cn-Configuration-and-Presets]]
+
+---
+
+* [[🏛️ MC 1.20.1 门户|1.20.1-Home]]
+* [[🌿 MC 1.21.1 门户|1.21.1-Home]]
+* [[❄️ MC 1.21.11 门户|1.21.11-Home]]
+* [[👑 MC 26.1 门户|26.1-Home]]
+* [[🎯 MC 26.2 门户|26.2-Home]]
+* [[⚡ MC 26.3 门户|26.3-Home]]
 
 </details>
 
@@ -24,6 +42,15 @@
 * [[🖼️ 分塊幀緩衝區超取樣引擎|zh_tw-Tiled-Framebuffer-Engine]]
 * [[⚙️ 配置系統與解析度預設|zh_tw-Configuration-and-Presets]]
 
+---
+
+* [[🏛️ MC 1.20.1 門戶|1.20.1-Home]]
+* [[🌿 MC 1.21.1 門戶|1.21.1-Home]]
+* [[❄️ MC 1.21.11 門戶|1.21.11-Home]]
+* [[👑 MC 26.1 門戶|26.1-Home]]
+* [[🎯 MC 26.2 門戶|26.2-Home]]
+* [[⚡ MC 26.3 門戶|26.3-Home]]
+
 </details>
 
 <details>
@@ -33,6 +60,15 @@
 * [[🗺️ Матрица совместимости версий|ru_ru-Version-Compatibility]]
 * [[🖼️ Плиточный движок кадрового буфера (Tiled FBO)|ru_ru-Tiled-Framebuffer-Engine]]
 * [[⚙️ Конфигурация и пресеты разрешения|ru_ru-Configuration-and-Presets]]
+
+---
+
+* [[🏛️ MC 1.20.1 Портал|1.20.1-Home]]
+* [[🌿 MC 1.21.1 Портал|1.21.1-Home]]
+* [[❄️ MC 1.21.11 Портал|1.21.11-Home]]
+* [[👑 MC 26.1 Портал|26.1-Home]]
+* [[🎯 MC 26.2 Портал|26.2-Home]]
+* [[⚡ MC 26.3 Портал|26.3-Home]]
 
 </details>
 
@@ -44,6 +80,15 @@
 * [[🖼️ Motor de Renderizado por Teselas (Tiled Framebuffer)|es_es-Tiled-Framebuffer-Engine]]
 * [[⚙️ Configuración y Preajustes de Resolución|es_es-Configuration-and-Presets]]
 
+---
+
+* [[🏛️ MC 1.20.1 Portal|1.20.1-Home]]
+* [[🌿 MC 1.21.1 Portal|1.21.1-Home]]
+* [[❄️ MC 1.21.11 Portal|1.21.11-Home]]
+* [[👑 MC 26.1 Portal|26.1-Home]]
+* [[🎯 MC 26.2 Portal|26.2-Home]]
+* [[⚡ MC 26.3 Portal|26.3-Home]]
+
 </details>
 
 <details>
@@ -53,6 +98,15 @@
 * [[🗺️ Kompatibilitäts- und Lebenszyklus-Matrix|de_de-Version-Compatibility]]
 * [[🖼️ Gekachelte Framebuffer-Rendering-Engine|de_de-Tiled-Framebuffer-Engine]]
 * [[⚙️ Konfiguration & Auflösungs-Presets|de_de-Configuration-and-Presets]]
+
+---
+
+* [[🏛️ MC 1.20.1 Portal|1.20.1-Home]]
+* [[🌿 MC 1.21.1 Portal|1.21.1-Home]]
+* [[❄️ MC 1.21.11 Portal|1.21.11-Home]]
+* [[👑 MC 26.1 Portal|26.1-Home]]
+* [[🎯 MC 26.2 Portal|26.2-Home]]
+* [[⚡ MC 26.3 Portal|26.3-Home]]
 
 </details>
 
@@ -64,6 +118,15 @@
 * [[🖼️ Moteur de Rendu par Tuiles (Tiled Framebuffer)|fr_fr-Tiled-Framebuffer-Engine]]
 * [[⚙️ Configuration & Préréglages de Résolution|fr_fr-Configuration-and-Presets]]
 
+---
+
+* [[🏛️ MC 1.20.1 Portail|1.20.1-Home]]
+* [[🌿 MC 1.21.1 Portail|1.21.1-Home]]
+* [[❄️ MC 1.21.11 Portail|1.21.11-Home]]
+* [[👑 MC 26.1 Portail|26.1-Home]]
+* [[🎯 MC 26.2 Portail|26.2-Home]]
+* [[⚡ MC 26.3 Portail|26.3-Home]]
+
 </details>
 
 <details>
@@ -73,6 +136,15 @@
 * [[🗺️ Matriz de Compatibilidade e Ciclo de Vida|pt_br-Version-Compatibility]]
 * [[🖼️ Motor de Renderização em Grade (Tiled Framebuffer)|pt_br-Tiled-Framebuffer-Engine]]
 * [[⚙️ Configurações e Predefinições de Resolução|pt_br-Configuration-and-Presets]]
+
+---
+
+* [[🏛️ MC 1.20.1 Portal|1.20.1-Home]]
+* [[🌿 MC 1.21.1 Portal|1.21.1-Home]]
+* [[❄️ MC 1.21.11 Portal|1.21.11-Home]]
+* [[👑 MC 26.1 Portal|26.1-Home]]
+* [[🎯 MC 26.2 Portal|26.2-Home]]
+* [[⚡ MC 26.3 Portal|26.3-Home]]
 
 </details>
 
@@ -84,6 +156,15 @@
 * [[🖼️ タイル分割フレームバッファ描画エンジン|ja_jp-Tiled-Framebuffer-Engine]]
 * [[⚙️ 設定と解像度プリセット|ja_jp-Configuration-and-Presets]]
 
+---
+
+* [[🏛️ MC 1.20.1 ポータル|1.20.1-Home]]
+* [[🌿 MC 1.21.1 ポータル|1.21.1-Home]]
+* [[❄️ MC 1.21.11 ポータル|1.21.11-Home]]
+* [[👑 MC 26.1 ポータル|26.1-Home]]
+* [[🎯 MC 26.2 ポータル|26.2-Home]]
+* [[⚡ MC 26.3 ポータル|26.3-Home]]
+
 </details>
 
 <details>
@@ -93,6 +174,15 @@
 * [[🗺️ Matriks Kompatibilitas & Siklus Hidup Versi|id_id-Version-Compatibility]]
 * [[🖼️ Mesin Render Framebuffer Bertingkat (Tiled FBO)|id_id-Tiled-Framebuffer-Engine]]
 * [[⚙️ Konfigurasi & Preset Resolusi|id_id-Configuration-and-Presets]]
+
+---
+
+* [[🏛️ MC 1.20.1 Portal|1.20.1-Home]]
+* [[🌿 MC 1.21.1 Portal|1.21.1-Home]]
+* [[❄️ MC 1.21.11 Portal|1.21.11-Home]]
+* [[👑 MC 26.1 Portal|26.1-Home]]
+* [[🎯 MC 26.2 Portal|26.2-Home]]
+* [[⚡ MC 26.3 Portal|26.3-Home]]
 
 </details>
 
@@ -104,51 +194,16 @@
 * [[🖼️ 타일 분할 프레임버퍼 렌더링 엔진|ko_kr-Tiled-Framebuffer-Engine]]
 * [[⚙️ 구성 설정 및 해상도 프리셋|ko_kr-Configuration-and-Presets]]
 
-</details>
-
 ---
 
-#### 🏛️ MC 1.20.1 Wiki
-* [[1.20.1 Portal|1.20.1-Home]]
-* [[Tiled Framebuffer Engine|1.20.1-Tiled-Framebuffer-Engine]]
-* [[Memory & Performance|1.20.1-Memory-and-Performance]]
-* [[Configuration & Presets|1.20.1-Configuration-and-Presets]]
-* [[Architecture & Mixins|1.20.1-Architecture-and-Mixins]]
+* [[🏛️ MC 1.20.1 포털|1.20.1-Home]]
+* [[🌿 MC 1.21.1 포털|1.21.1-Home]]
+* [[❄️ MC 1.21.11 포털|1.21.11-Home]]
+* [[👑 MC 26.1 포털|26.1-Home]]
+* [[🎯 MC 26.2 포털|26.2-Home]]
+* [[⚡ MC 26.3 포털|26.3-Home]]
 
-#### 🌿 MC 1.21.1 Wiki
-* [[1.21.1 Portal|1.21.1-Home]]
-* [[Tiled Framebuffer Engine|1.21.1-Tiled-Framebuffer-Engine]]
-* [[Memory & Performance|1.21.1-Memory-and-Performance]]
-* [[Configuration & Presets|1.21.1-Configuration-and-Presets]]
-* [[Architecture & Mixins|1.21.1-Architecture-and-Mixins]]
-
-#### ❄️ MC 1.21.11 Wiki
-* [[1.21.11 Portal|1.21.11-Home]]
-* [[Tiled Framebuffer Engine|1.21.11-Tiled-Framebuffer-Engine]]
-* [[Memory & Performance|1.21.11-Memory-and-Performance]]
-* [[Configuration & Presets|1.21.11-Configuration-and-Presets]]
-* [[Architecture & Mixins|1.21.11-Architecture-and-Mixins]]
-
-#### 👑 MC 26.1 Wiki
-* [[26.1 Portal|26.1-Home]]
-* [[Tiled Framebuffer Engine|26.1-Tiled-Framebuffer-Engine]]
-* [[Memory & Performance|26.1-Memory-and-Performance]]
-* [[Configuration & Presets|26.1-Configuration-and-Presets]]
-* [[Architecture & Mixins|26.1-Architecture-and-Mixins]]
-
-#### 🎯 MC 26.2 Wiki
-* [[26.2 Portal|26.2-Home]]
-* [[Tiled Framebuffer Engine|26.2-Tiled-Framebuffer-Engine]]
-* [[Memory & Performance|26.2-Memory-and-Performance]]
-* [[Configuration & Presets|26.2-Configuration-and-Presets]]
-* [[Architecture & Mixins|26.2-Architecture-and-Mixins]]
-
-#### ⚡ MC 26.3 Wiki
-* [[26.3 Portal|26.3-Home]]
-* [[Tiled Framebuffer Engine|26.3-Tiled-Framebuffer-Engine]]
-* [[Memory & Performance|26.3-Memory-and-Performance]]
-* [[Configuration & Presets|26.3-Configuration-and-Presets]]
-* [[Architecture & Mixins|26.3-Architecture-and-Mixins]]
+</details>
 
 ---
 
