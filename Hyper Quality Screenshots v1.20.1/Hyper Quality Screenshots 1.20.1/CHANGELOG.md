@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.2+1.20.1]
+
+### Fixed
+- Fixed Mixin configuration compatibility level from `JAVA_21` to `JAVA_17` in `hyper-screenshots.mixins.json`, preventing runtime errors on Java 17 Minecraft 1.20.1 installations.
+
+## [1.2.1+1.20.1]
+
+### Added
+- Injected top-pinned Ko-fi creator support button into the YACL configuration interface.
+
 ## [1.2.0+1.20.1]
 
 ### Added
