@@ -3,6 +3,7 @@ package net.vanillaoutsider.hyperscreenshots.mixin;
 
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import net.vanillaoutsider.hyperscreenshots.config.HyperScreenshotsConfig;
 import net.vanillaoutsider.hyperscreenshots.config.ResolutionPreset;
@@ -18,7 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class KeyboardMixin {
     private static final int KEY_F2 = 291;
     private static final int ACTION_PRESS = 1;
-    private static final int MOD_CONTROL = 2;
     private static final int MOD_ALT = 4;
 
     @Shadow
@@ -26,11 +26,11 @@ public abstract class KeyboardMixin {
     private Minecraft minecraft;
 
     @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)
-    private void onKeyPress(long handle, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
-        if (action == ACTION_PRESS && key == KEY_F2) {
+    private void onKeyPress(long handle, int action, KeyEvent event, CallbackInfo ci) {
+        if (action == ACTION_PRESS && event.key() == KEY_F2) {
             HyperScreenshotsConfig config = HyperScreenshotsConfig.get();
-            boolean isCtrlDown = (modifiers & MOD_CONTROL) != 0;
-            boolean isAltDown = (modifiers & MOD_ALT) != 0;
+            boolean isCtrlDown = event.hasControlDownWithQuirk();
+            boolean isAltDown = (event.modifiers() & MOD_ALT) != 0;
 
             if (isAltDown) {
                 // Live Toggle: Auto-Hide Hand
