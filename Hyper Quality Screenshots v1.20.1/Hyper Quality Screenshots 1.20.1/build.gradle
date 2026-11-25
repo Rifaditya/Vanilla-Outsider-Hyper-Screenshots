@@ -25,6 +25,7 @@ dependencies {
 
 	// Optional GUI Dependencies (modCompileOnly with transitive = false)
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
 	modCompileOnly("dev.isxander.yacl:yet-another-config-lib-fabric:${project.yacl_version}") {
 		transitive = false
 	}

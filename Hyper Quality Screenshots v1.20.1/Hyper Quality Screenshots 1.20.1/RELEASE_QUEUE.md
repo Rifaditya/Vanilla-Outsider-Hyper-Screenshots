@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.2.4+1.20.1`** (2026-11-25) - **ModMenu Factory & Side-Safety Hardening:** Added `YaclScreenHelper.createFactory()` parity, replaced `Class.forName` in `ModMenuIntegration` with guarded direct factory dispatch + `@Environment(EnvType.CLIENT)`, and added 5-pillar client contract tests.
 - [ ] **`1.2.2+1.20.1`** - **Java 17 Mixin Compatibility Fix:** Corrected Mixin configuration compatibilityLevel from JAVA_21 to JAVA_17 for Minecraft 1.20.1 runtime.
 - [ ] **`1.2.1+1.20.1`** - **In-Game Creator Support Button:** Injected top-pinned Ko-fi support button at index 0 of Category 1 (Presets group) with fallback support.
 - [ ] **`1.2.0+1.20.1`** - Brigadier client command suite (/hyperscreenshots, /hypershot, /hqss).

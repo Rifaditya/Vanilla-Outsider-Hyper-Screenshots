@@ -10,6 +10,13 @@ base {
 	archivesName = project.archives_base_name
 }
 
+loom {
+	mixin {
+		useLegacyMixinAp = true
+		defaultRefmapName = "${project.archives_base_name}-refmap.json"
+	}
+}
+
 repositories {
 	mavenCentral()
 	maven { url "https://maven.fabricmc.net/" }
@@ -25,6 +32,7 @@ dependencies {
 
 	// Optional GUI Dependencies (modCompileOnly)
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
 	modCompileOnly "dev.isxander:yet-another-config-lib:${project.yacl_version}"
 
 	testImplementation platform('org.junit:junit-bom:5.10.2')

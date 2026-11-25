@@ -11,17 +11,24 @@ import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
 import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
 import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 /**
  * Isolated Screen Helper for YetAnotherConfigLib v3.
- * Referenced strictly via reflection from ModMenuIntegration to guarantee zero server classloading issues.
+ * Referenced strictly via FabricLoader mod-loaded guard from ModMenuIntegration to guarantee zero server classloading issues.
  */
+@Environment(EnvType.CLIENT)
 public final class YaclScreenHelper {
 
     private YaclScreenHelper() {}
+
+    public static ConfigScreenFactory<?> createFactory() {
+        return createScreen();
+    }
 
     public static ConfigScreenFactory<?> createScreen() {
         return parent -> buildScreen(parent);

@@ -10,10 +10,15 @@ import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import dev.isxander.yacl3.api.controller.EnumDropdownControllerBuilder;
 import dev.isxander.yacl3.api.controller.FloatSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
+import java.net.URI;
+
+@Environment(EnvType.CLIENT)
 public final class YaclScreenHelper {
 
     private YaclScreenHelper() {}
@@ -127,7 +132,7 @@ public final class YaclScreenHelper {
             return ButtonOption.createBuilder()
                 .name(Component.translatable("dasiklibrary.support.kofi.button"))
                 .description(OptionDescription.of(Component.translatable("dasiklibrary.support.kofi.tooltip")))
-                .action((screen, opt) -> ConfirmLinkScreen.confirmLinkNow(screen, "https://ko-fi.com/dasikigaijin"))
+                .action((screen, opt) -> ConfirmLinkScreen.confirmLinkNow(screen, URI.create("https://ko-fi.com/dasikigaijin")))
                 .build();
         } catch (Throwable ignored) {
             return null;

@@ -25,6 +25,7 @@ dependencies {
 
 	// Optional GUI Dependencies (modCompileOnly for Loom remapping)
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
 	modCompileOnly "dev.isxander:yet-another-config-lib:${project.yacl_version}"
 
 	testImplementation platform('org.junit:junit-bom:5.10.2')

@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.2.4+26.1.2`** (2026-11-25) - **ConfirmLinkScreen URI & ModMenu Hardening:** Migrated Ko-fi fallback to `URI.create(...)`, replaced `Class.forName` in `ModMenuIntegration` with guarded direct dispatch + `@Environment(EnvType.CLIENT)` annotations, and added 5-pillar client contract tests.
 - [ ] **`1.2.2+26.1.2`** (2026-09-05) - - **Ko-fi Support Integration**: Injected top-pinned Ko-fi creator support button across Capture & Feedback category tabs in YACL configuration screen.
 - [ ] **`1.2.1+26.1.2`** (2026-09-05) - - **Ko-fi Support Integration**: Injected top-pinned Ko-fi creator support button into YACL in-game configuration screen with native fallback.
 - [ ] **`1.2.0+26.1.2`** - Brigadier client command suite (/hyperscreenshots, /hypershot, /hqss).

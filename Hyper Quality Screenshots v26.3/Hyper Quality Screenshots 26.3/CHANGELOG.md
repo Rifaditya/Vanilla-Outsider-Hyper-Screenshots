@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4+26.3] - 2026-11-25
+
+### Fixed
+- Migrated `YaclScreenHelper` Ko-fi fallback button from the deleted `ConfirmLinkScreen.confirmLinkNow(screen, String)` overload to `ConfirmLinkScreen.confirmLinkNow(screen, URI.create("https://ko-fi.com/dasikigaijin"))`.
+- Removed `Class.forName(...)` reflection in `ModMenuIntegration`, replacing it with a `FabricLoader.getInstance().isModLoaded(...)` and `try/catch (Throwable)` guard.
+- Added 5-pillar headless client contract tests verifying config validation fuzzing, concurrency safety, translation keys, ModMenu absent-YACL fallback, and class-file bytecode descriptors.
+
 ## [1.2.3+26.3] - 2026-09-05
 
 ### Fixed

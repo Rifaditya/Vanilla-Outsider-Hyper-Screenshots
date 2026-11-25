@@ -12,19 +12,13 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        if (FabricLoader.getInstance().isModLoaded("yet-another-config-lib")
-                || FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
-            try {
-                Class<?> helperClass = Class.forName(
-                        "net.vanillaoutsider.hyperscreenshots.config.YaclScreenHelper",
-                        false,
-                        Thread.currentThread().getContextClassLoader()
-                );
-                java.lang.reflect.Method method = helperClass.getMethod("createFactory");
-                return (ConfigScreenFactory<?>) method.invoke(null);
-            } catch (Exception ignored) {
-                // Fallback gracefully without crash
+        try {
+            if (FabricLoader.getInstance().isModLoaded("yet-another-config-lib")
+                    || FabricLoader.getInstance().isModLoaded("yet_another_config_lib_v3")) {
+                return YaclScreenHelper.createFactory();
             }
+        } catch (Throwable ignored) {
+            // Fallback gracefully without crash (absent YACL or headless test runtime)
         }
         return parent -> null;
     }

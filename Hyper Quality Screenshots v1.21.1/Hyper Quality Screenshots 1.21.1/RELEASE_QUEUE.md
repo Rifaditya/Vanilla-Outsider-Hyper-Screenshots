@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.2.4+1.21.1`** (2026-11-25) - **ConfirmLinkScreen URI & ModMenu Hardening:** Migrated Ko-fi fallback to `URI.create(...)`, replaced `Class.forName` in `ModMenuIntegration` with guarded direct dispatch + `@Environment(EnvType.CLIENT)` annotations, and added 5-pillar client contract tests.
 - [ ] **`1.2.1+1.21.1`** - **In-Game Creator Support Button:** Injected top-pinned Ko-fi support button at index 0 of Category 1 (Resolution & Supersampling) with fallback support.
 - [ ] **`1.2.0+1.21.1`** - Brigadier client command suite (/hyperscreenshots, /hypershot, /hqss).
 - [ ] **`1.1.7+1.21.1`** - Hardware bounds safety clamping and GPU limit guard.

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4+1.20.1] - 2026-11-25
+
+### Fixed
+- Added `YaclScreenHelper.createFactory()` parity on Minecraft 1.20.1 so ModMenu resolves the YACL configuration screen factory cleanly.
+- Removed `Class.forName(...)` reflection in `ModMenuIntegration`, replacing it with a `FabricLoader.getInstance().isModLoaded(...)` and `try/catch (Throwable)` guard plus `@Environment(EnvType.CLIENT)` client side-safety annotations.
+- Added 5-pillar headless client contract tests verifying config validation fuzzing, concurrency safety, translation keys, ModMenu absent-YACL fallback, and class-file bytecode descriptors.
+
 ## [1.2.2+1.20.1]
 
 ### Fixed

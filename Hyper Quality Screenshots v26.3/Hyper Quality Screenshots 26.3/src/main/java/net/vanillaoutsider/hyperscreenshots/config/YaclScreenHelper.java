@@ -16,6 +16,8 @@ import net.minecraft.network.chat.Component;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
+import java.net.URI;
+
 @Environment(EnvType.CLIENT)
 public final class YaclScreenHelper {
 
@@ -144,7 +146,7 @@ public final class YaclScreenHelper {
             return ButtonOption.createBuilder()
                 .name(Component.translatable("dasiklibrary.support.kofi.button"))
                 .description(OptionDescription.of(Component.translatable("dasiklibrary.support.kofi.tooltip")))
-                .action((screen, opt) -> ConfirmLinkScreen.confirmLinkNow(screen, "https://ko-fi.com/dasikigaijin"))
+                .action((screen, opt) -> ConfirmLinkScreen.confirmLinkNow(screen, URI.create("https://ko-fi.com/dasikigaijin")))
                 .build();
         } catch (Throwable ignored) {
             return null;
