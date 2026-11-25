@@ -1,7 +1,7 @@
 # 🎛️ Master Release Queue: Vanilla Outsider — Hyper Quality Screenshots
 
 > **Mod Project Master Ground-Truth Document**  
-> *Last Synchronized: 2026-09-01*  
+> *Last Synchronized: 2026-11-25*  
 > **Modrinth ID**: *Unregistered* | **CurseForge ID**: *Unregistered* | **Lead SemVer**: `1.0.0`
 
 ---
@@ -10,12 +10,12 @@
 
 | Target MC | Generational Era | Live on Platforms | Next Queued Version | Status & Cadence Action | Feature Highlights / Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **MC 26.3** | Modern Lead | *(Unreleased)* | `1.0.0+26.3` | 🟢 **Ready to Publish** | Next release: `1.0.0+26.3` (`1.1.0+26.3` ... `1.1.7+26.3`, `1.2.0+26.3` queued next). |
-| **MC 26.2** | Modern Predecessor | *(Unreleased)* | `1.0.0+26.2` | 🟢 **Ready to Publish** | Next release: `1.0.0+26.2` (`1.1.0+26.2` ... `1.1.7+26.2`, `1.2.0+26.2` queued next). |
-| **MC 26.1** | Modern Predecessor | *(Unreleased)* | `1.0.0+26.1.2` | 🟢 **Ready to Publish** | Next release: `1.0.0+26.1.2` (`1.1.0+26.1.2` ... `1.1.7+26.1.2`, `1.2.0+26.1.2` queued next). |
-| **MC 1.21.11** | Legacy Anchor | *(Unreleased)* | `1.0.0+1.21.11` | 🟢 **Ready to Publish** | Next release: `1.0.0+1.21.11` (`1.1.0+1.21.11` ... `1.1.7+1.21.11`, `1.2.0+1.21.11` queued next). |
-| **MC 1.21.1** | Legacy Anchor | *(Unreleased)* | `1.0.0+1.21.1` | 🟢 **Ready to Publish** | Next release: `1.0.0+1.21.1` (`1.1.0+1.21.1` ... `1.1.7+1.21.1`, `1.2.0+1.21.1` queued next). |
-| **MC 1.20.1** | Legacy Anchor | *(Unreleased)* | `1.0.0+1.20.1` | 🟢 **Ready to Publish** | Next release: `1.0.0+1.20.1` (`1.1.0+1.20.1` ... `1.1.7+1.20.1`, `1.2.0+1.20.1` queued next). |
+| **MC 26.3** | Modern Lead | *(Unreleased)* | `1.0.0+26.3` | 🟢 **Ready to Publish** | Next release: `1.0.0+26.3` (`1.1.0+26.3` ... `1.2.3+26.3`, `1.2.4+26.3` `[BL-HQS-007]` queued next). |
+| **MC 26.2** | Modern Predecessor | *(Unreleased)* | `1.0.0+26.2` | 🟢 **Ready to Publish** | Next release: `1.0.0+26.2` (`1.1.0+26.2` ... `1.2.3+26.2`, `1.2.4+26.2` `[BL-HQS-007]` queued next). |
+| **MC 26.1** | Modern Predecessor | *(Unreleased)* | `1.0.0+26.1.2` | 🟢 **Ready to Publish** | Next release: `1.0.0+26.1.2` (`1.1.0+26.1.2` ... `1.2.2+26.1.2`, `1.2.4+26.1.2` `[BL-HQS-007]` queued next). |
+| **MC 1.21.11** | Legacy Anchor | *(Unreleased)* | `1.0.0+1.21.11` | 🟢 **Ready to Publish** | Next release: `1.0.0+1.21.11` (`1.1.0+1.21.11` ... `1.2.2+1.21.11`, `1.2.4+1.21.11` `[BL-HQS-007]` queued next). |
+| **MC 1.21.1** | Legacy Anchor | *(Unreleased)* | `1.0.0+1.21.1` | 🟢 **Ready to Publish** | Next release: `1.0.0+1.21.1` (`1.1.0+1.21.1` ... `1.2.1+1.21.1`, `1.2.4+1.21.1` `[BL-HQS-007]` queued next). |
+| **MC 1.20.1** | Legacy Anchor | *(Unreleased)* | `1.0.0+1.20.1` | 🟢 **Ready to Publish** | Next release: `1.0.0+1.20.1` (`1.1.0+1.20.1` ... `1.2.2+1.20.1`, `1.2.4+1.20.1` `[BL-HQS-007]` queued next). |
 
 ---
 

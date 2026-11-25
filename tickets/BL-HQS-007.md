@@ -5,7 +5,7 @@
 - **Priority**: `[HIGH]`
 - **Target Version**: `All Active Anchors (1.20.1, 1.21.1, 1.21.11, 26.1.2, 26.2, 26.3) & Future Anchors (26.x / 26.4+ / 2x.x+)`
 - **Scope**: `YaclScreenHelper.java` (`createSupportButton()` fallback lambda + `1.20.1` `createFactory()` parity) & `ModMenuIntegration.java` (remove `Class.forName`) across all HQS anchors + client 5-pillar bytecode verification test
-- **Status**: `📌 DEFERRED`
+- **Status**: `✅ RESOLVED`
 - **Grilling Status**: `✅ PASSED` *(Stage 1.5 Live-Code Reality Check & Director Alignment Complete — 2026-11-25)*
 - **Target Repository/Root**: `Vanilla Outsider Collections/Hyper Quality Screenshots` (`E:\Minecraft Project\Vanilla Outsider Collections\Hyper Quality Screenshots`)
 - **Related Tickets**: [`BL-DASIK-023`](file:///E:/Minecraft%20Project/MC-DasikLibrary/tickets/BL-DASIK-023.md) (primary Dasik Library root fix), [`BL-HQS-004`](./BL-HQS-004.md) (`UniversalConfigScreen` migration), [`BL-HQS-005`](./BL-HQS-005.md) (Anchor 7 `26.x` rolling scaffold)
@@ -25,10 +25,10 @@
    - ❌ Do NOT scaffold the full `Hyper Quality Screenshots v26.x/` subproject directory here — that belongs strictly to [`BL-HQS-005`](./BL-HQS-005.md) (though [`BL-HQS-005`](./BL-HQS-005.md) MUST inherit the `URI.create(...)` fix).
    - ❌ Do NOT touch tiled framebuffer rendering, screenshot capture math, HUD/hand hiding mixins, or keybinding logic.
 4. **✅ Definition of Done (Binary Verification Checklist)**:
-   - [ ] `YaclScreenHelper.java` invokes `ConfirmLinkScreen.confirmLinkNow(screen, URI.create("https://ko-fi.com/dasikigaijin"))` on `1.21.1`, `1.21.11`, `26.1.2`, `26.2`, and `26.3` (and is documented as mandatory baseline for future `26.x` / `26.4+` scaffolds).
-   - [ ] `Hyper Quality Screenshots v1.20.1` `YaclScreenHelper.java:148` is verified intact on `ConfirmLinkScreen.confirmLinkNow("https://ko-fi.com/dasikigaijin", screen, true)`.
-   - [ ] Client-only headless bytecode/AST test verifies zero `(Lnet/minecraft/client/gui/screens/Screen;Ljava/lang/String;)V` calls in `YaclScreenHelper.class` on `1.21.1+` and `26.x+` anchors.
-   - [ ] All active HQS anchors compile cleanly and pass tests (`./gradlew.bat test build --no-daemon --console=plain`).
+   - [x] `YaclScreenHelper.java` invokes `ConfirmLinkScreen.confirmLinkNow(screen, URI.create("https://ko-fi.com/dasikigaijin"))` on `1.21.1`, `1.21.11`, `26.1.2`, `26.2`, and `26.3` (and is documented as mandatory baseline for future `26.x` / `26.4+` scaffolds).
+   - [x] `Hyper Quality Screenshots v1.20.1` `YaclScreenHelper.java:148` is verified intact on `ConfirmLinkScreen.confirmLinkNow("https://ko-fi.com/dasikigaijin", screen, true)`.
+   - [x] Client-only headless bytecode/AST test verifies zero `(Lnet/minecraft/client/gui/screens/Screen;Ljava/lang/String;)V` calls in `YaclScreenHelper.class` on `1.21.1+` and `26.x+` anchors.
+   - [x] All active HQS anchors compile cleanly and pass tests (`./gradlew.bat test build --no-daemon --console=plain`).
 
 ---
 
@@ -106,11 +106,11 @@ During the root-cause audit for [`BL-DASIK-023`](file:///E:/Minecraft%20Project/
 
 > Because `Hyper Quality Screenshots` declares `"environment": "client"` in `fabric.mod.json`, Pillars 3–5 follow the Client-Only Adaptation per `backlog-and-ticket-templates.md` (zero server Brigadier commands or Mojang GameTests).
 
-- [ ] **Pillar 1 (Client Input & Config Safety Fuzzing)**: Fuzz Ko-fi URL / URI validation and `HyperScreenshotsConfig` bounds across 10,000+ randomized inputs without unhandled exceptions.
-- [ ] **Pillar 2 (Concurrency Load)**: Stress headless config screen factory / support button creation across concurrent threads without race conditions.
-- [ ] **Pillar 3 (Headless GUI & Translation AST Verification)**: `HyperScreenshotsClientContractTest` validates `dasiklibrary.support.kofi.button` / `dasiklibrary.support.kofi.tooltip` keys and `ModMenuIntegration` graceful fallback when YACL is absent.
-- [ ] **Pillar 4 (Headless Client State Simulation)**: Simulate both `DasikSupportHelper` reflection-present and fallback-only paths headlessly, confirming no uncaught exceptions or `NoClassDefFoundError`.
-- [ ] **Pillar 5 (Client Manifest, License Hygiene & Bytecode Descriptor Audit)**: Verify `"environment": "client"`, single-line GNU GPLv3 headers on all touched `.java` files, and `.class` bytecode check proving `YaclScreenHelper.class` invokes `ConfirmLinkScreen.confirmLinkNow` with `(Lnet/minecraft/client/gui/screens/Screen;Ljava/net/URI;)V` and ZERO `(Lnet/minecraft/client/gui/screens/Screen;Ljava/lang/String;)V` on `1.21.1`–`26.3`+ (clean `./gradlew.bat test build --no-daemon --console=plain` across all 6 active anchors).
+- [x] **Pillar 1 (Client Input & Config Safety Fuzzing)**: Fuzz Ko-fi URL / URI validation and `HyperScreenshotsConfig` bounds across 10,000+ randomized inputs without unhandled exceptions.
+- [x] **Pillar 2 (Concurrency Load)**: Stress headless config screen factory / support button creation across concurrent threads without race conditions.
+- [x] **Pillar 3 (Headless GUI & Translation AST Verification)**: `HyperScreenshotsClientContractTest` validates `dasiklibrary.support.kofi.button` / `dasiklibrary.support.kofi.tooltip` keys and `ModMenuIntegration` graceful fallback when YACL is absent.
+- [x] **Pillar 4 (Headless Client State Simulation)**: Simulate both `DasikSupportHelper` reflection-present and fallback-only paths headlessly, confirming no uncaught exceptions or `NoClassDefFoundError`.
+- [x] **Pillar 5 (Client Manifest, License Hygiene & Bytecode Descriptor Audit)**: Verify `"environment": "client"`, single-line GNU GPLv3 headers on all touched `.java` files, and `.class` bytecode check proving `YaclScreenHelper.class` invokes `ConfirmLinkScreen.confirmLinkNow` with `(Lnet/minecraft/client/gui/screens/Screen;Ljava/net/URI;)V` and ZERO `(Lnet/minecraft/client/gui/screens/Screen;Ljava/lang/String;)V` on `1.21.1`–`26.3`+ (clean `./gradlew.bat test build --no-daemon --console=plain` across all 6 active anchors).
 
 ---
 
