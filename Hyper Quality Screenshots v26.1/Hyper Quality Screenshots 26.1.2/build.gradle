@@ -75,8 +75,8 @@ afterEvaluate {
 					jarFile = file("build/libs/${project.archives_base_name}-${project.mod_version}.jar")
 				}
 				if (jarFile.exists()) {
-					// 1. Central Outer Archive (MC 26.1)
-					def archiveDir = file("../../Archive Jar of all versions/MC 26.1")
+					// 1. Central Outer Archive (MC 26.1.2)
+					def archiveDir = file("../../Archive Jar of all versions/MC 26.1.2")
 					if (!archiveDir.exists()) {
 						archiveDir.mkdirs()
 					}
